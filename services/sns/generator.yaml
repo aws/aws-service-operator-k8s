@@ -14,6 +14,10 @@ resources:
           is_read_only: true
         TopicArn:
           is_read_only: true
+    update_operation:
+      # SetTopicAttributes is inconsistent and requires multiple API calls to
+      # set multiple attributes...
+      custom_method_name: customUpdateTopic
   PlatformApplication:
     unpack_attributes_map:
       fields:

@@ -6,6 +6,7 @@ SCRIPTS_DIR="$ROOT_DIR/scripts"
 
 source "$SCRIPTS_DIR/lib/common.sh"
 source "$SCRIPTS_DIR/lib/k8s.sh"
+source "$SCRIPTS_DIR/lib/aws/sqs.sh"
 source "$SCRIPTS_DIR/lib/testutil.sh"
 
 test_name="$( filenoext "${BASH_SOURCE[0]}" )"
@@ -16,13 +17,8 @@ debug_msg "executing test: $service_name/$test_name"
 queue_name="ack-test-smoke-$service_name"
 resource_name="queues/$queue_name"
 
-get_queue_url() {
-    aws sqs get-queue-url --queue-name "$queue_name" --output json >/dev/null 2>&1
-}
-
 # PRE-CHECKS
-get_queue_url
-if [[ $? -ne 255 && $? -ne 254 ]]; then
+if sqs_queue_exists "$queue_name"; then
     echo "FAIL: expected $queue_name to not exist in SQS. Did previous test run cleanup?"
     exit 1
 fi
@@ -40,14 +36,13 @@ kind: Queue
 metadata:
   name: $queue_name
 spec:
-  name: $queue_name
+  queueName: $queue_name
 EOF
 
 sleep 20
 
 debug_msg "checking queue $queue_name created in SQS"
-get_queue_url
-if [[ $? -eq 255 || $? -eq 254 ]]; then
+if ! sqs_queue_exists "$queue_name"; then
     echo "FAIL: expected $queue_name to have been created in SQS"
     kubectl logs -n ack-system "$ack_ctrl_pod_id"
     exit 1
@@ -56,8 +51,14 @@ fi
 kubectl delete "$resource_name" 2>/dev/null
 assert_equal "0" "$?" "Expected success from kubectl delete but got $?" || exit 1
 
-get_queue_url
-if [[ $? -ne 255 && $? -ne 254 ]]; then
+# Deletion of queues is not fast for SQS. The queue continues to exist and be
+# returned in list operations for many seconds after the AWS DeleteQueue API
+# call returned success. So, wait here a bit before asserting that the AWS SQS
+# API no longer shows the queue...
+
+sleep 30
+
+if sqs_queue_exists "$queue_name"; then
     echo "FAIL: expected $queue_name to be deleted in SQS"
     kubectl logs -n ack-system "$ack_ctrl_pod_id"
     exit 1

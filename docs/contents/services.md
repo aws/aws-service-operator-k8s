@@ -29,7 +29,7 @@ Controller Release Roadmap](https://github.com/aws/aws-controllers-k8s/projects/
 | Amazon [RDS][rds] | `PLANNED` | [`DEVELOPER PREVIEW`](https://github.com/aws/aws-controllers-k8s/milestone/8)
 | Amazon [Sagemaker][sagemaker] | `BUILD` | [`DEVELOPER PREVIEW`](https://github.com/aws/aws-controllers-k8s/milestone/11)
 | Amazon [SNS][sns] | `DEVELOPER PREVIEW` |
-| Amazon [SQS][sqs] | `BUILD` | [`DEVELOPER PREVIEW`](https://github.com/aws/aws-controllers-k8s/milestone/6)
+| Amazon [SQS][sqs] | `DEVELOPER PREVIEW` |
 | AWS [StepFunctions][sfn] | `DEVELOPER PREVIEW`
 | Amazon [S3][s3] | `DEVELOPER PREVIEW` |
 
@@ -140,8 +140,7 @@ Controller Release Roadmap](https://github.com/aws/aws-controllers-k8s/projects/
 ## Amazon SQS [sqs]
 
 * Proposed: https://github.com/aws/aws-controllers-k8s/issues/205
-* Current release status: `BUILD`
-* Next milestone: [`DEVELOPER PREVIEW`](https://github.com/aws/aws-controllers-k8s/milestone/6)
+* Current release status: `DEVELOPER PREVIEW`
 * AWS service documentation: https://aws.amazon.com/sqs/
 * ACK service controller: https://github.com/aws/aws-controllers-k8s/tree/main/services/sqs
 

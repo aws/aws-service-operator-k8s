@@ -654,7 +654,9 @@ func (r *CRD) GoCodeSetInput(
 		// attrMap["DisplayName"} = r.ko.Spec.DisplayName
 		// attrMap["KmsMasterKeyId"] = r.ko.Spec.KMSMasterKeyID
 		// attrMap["Policy"] = r.ko.Spec.Policy
-		// res.SetAttributes(attrMap)
+		// if len(attrMap) > 0 {
+		//     res.SetAttributes(attrMap)
+		// }
 		attrMapConfig := r.genCfg.Resources[r.Names.Original].UnpackAttributesMapConfig
 		out += fmt.Sprintf("%sattrMap := map[string]*string{}\n", indent)
 		sortedAttrFieldNames := []string{}
@@ -680,7 +682,9 @@ func (r *CRD) GoCodeSetInput(
 				)
 			}
 		}
-		out += fmt.Sprintf("%s%s.SetAttributes(attrMap)\n", indent, targetVarName)
+		out += fmt.Sprintf("%sif len(attrMap) > 0 {\n", indent)
+		out += fmt.Sprintf("%s\t%s.SetAttributes(attrMap)\n", indent, targetVarName)
+		out += fmt.Sprintf("%s}\n", indent)
 	}
 
 	opConfig, override := r.genCfg.OverrideValues(op.Name)
@@ -1128,7 +1132,9 @@ func (r *CRD) GoCodeSetAttributesSetInput(
 			// if r.ko.Spec.Policy != nil {
 			//     attrMap["Policy"] = r.ko.Spec.Policy
 			// }
-			// res.SetAttributes(attrMap)
+			// if len(attrMap) > 0 {
+			//     res.SetAttributes(attrMap)
+			// }
 			attrMapConfig := r.genCfg.Resources[r.Names.Original].UnpackAttributesMapConfig
 			out += fmt.Sprintf("%sattrMap := map[string]*string{}\n", indent)
 			sortedAttrFieldNames := []string{}
@@ -1154,7 +1160,9 @@ func (r *CRD) GoCodeSetAttributesSetInput(
 					)
 				}
 			}
-			out += fmt.Sprintf("%s%s.SetAttributes(attrMap)\n", indent, targetVarName)
+			out += fmt.Sprintf("%sif len(attrMap) > 0 {\n", indent)
+			out += fmt.Sprintf("%s\t%s.SetAttributes(attrMap)\n", indent, targetVarName)
+			out += fmt.Sprintf("%s}\n", indent)
 			continue
 		}
 
@@ -2048,8 +2056,9 @@ func goCodeACKResourceMetadataGuardConstructor(
 	return out
 }
 
-// GoCodeGetAttributesSetOutput returns the Go code that sets the Status fields
-// from the Output shape returned from a resource's GetAttributes operation.
+// GoCodeGetAttributesSetOutput returns the Go code that sets the Spec and
+// Status fields from the Output shape returned from a resource's GetAttributes
+// operation.
 //
 // As an example, for the GetTopicAttributes SNS API call, the returned code
 // looks like this:
@@ -2057,9 +2066,17 @@ func goCodeACKResourceMetadataGuardConstructor(
 // if ko.Status.ACKResourceMetadata == nil {
 //     ko.Status.ACKResourceMetadata = &ackv1alpha1.ResourceMetadata{}
 // }
+// ko.Spec.DeliveryPolicy = resp.Attributes["DeliveryPolicy"]
+// ko.Spec.DisplayName = resp.Attributes["DisplayName"]
 // ko.Status.EffectiveDeliveryPolicy = resp.Attributes["EffectiveDeliveryPolicy"]
+// ko.Spec.KMSKeyID = resp.Attributes["KmsKeyId"]
+// ko.Spec.Policy = resp.Attributes["Policy"]
 // ko.Status.ACKResourceMetadata.OwnerAccountID = ackv1alpha1.AWSAccountID(resp.Attributes["Owner"])
 // ko.Status.ACKResourceMetadata.ARN = ackv1alpha1.AWSResourceName(resp.Attributes["TopicArn"])
+//
+// You will note that we set both Status and Spec fields from the response
+// Output shape member fields. This is to ensure we set nil'd Spec fields to
+// the server-side-set field defaults.
 func (r *CRD) GoCodeGetAttributesSetOutput(
 	// String representing the name of the variable that we will grab the
 	// Output shape from. This will likely be "resp" since in the templates
@@ -2067,9 +2084,9 @@ func (r *CRD) GoCodeGetAttributesSetOutput(
 	// returned by the aws-sdk-go's SDK API call corresponding to the Operation
 	sourceVarName string,
 	// String representing the name of the variable that we will be **setting**
-	// with values we get from the Output shape. This will likely be
-	// "ko.Status" since that is the name of the "target variable" that the
-	// templates that call this method use.
+	// with values we get from the Output shape. This will likely be "ko" since
+	// that is the name of the "target variable" that the templates that call
+	// this method use.
 	targetVarName string,
 	// Number of levels of indentation to use
 	indentLevel int,
@@ -2103,7 +2120,7 @@ func (r *CRD) GoCodeGetAttributesSetOutput(
 		if r.IsPrimaryARNField(fieldName) {
 			if !mdGuardOut {
 				out += goCodeACKResourceMetadataGuardConstructor(
-					targetVarName, indentLevel,
+					targetVarName+".Status", indentLevel,
 				)
 				mdGuardOut = true
 			}
@@ -2114,7 +2131,7 @@ func (r *CRD) GoCodeGetAttributesSetOutput(
 				fieldName,
 			)
 			out += fmt.Sprintf(
-				"%s%s.ACKResourceMetadata.ARN = &tmpARN\n",
+				"%s%s.Status.ACKResourceMetadata.ARN = &tmpARN\n",
 				indent,
 				targetVarName,
 			)
@@ -2125,7 +2142,7 @@ func (r *CRD) GoCodeGetAttributesSetOutput(
 		if fieldConfig.ContainsOwnerAccountID {
 			if !mdGuardOut {
 				out += goCodeACKResourceMetadataGuardConstructor(
-					targetVarName, indentLevel,
+					targetVarName+".Status", indentLevel,
 				)
 				mdGuardOut = true
 			}
@@ -2136,24 +2153,30 @@ func (r *CRD) GoCodeGetAttributesSetOutput(
 				fieldName,
 			)
 			out += fmt.Sprintf(
-				"%s%s.ACKResourceMetadata.OwnerAccountID = &tmpOwnerID\n",
+				"%s%s.Status.ACKResourceMetadata.OwnerAccountID = &tmpOwnerID\n",
 				indent,
 				targetVarName,
 			)
 			continue
 		}
 
+		// Fields that are IsReadOnly go in the Status substruct. Others go in
+		// the Spec substruct...
+		targetAdaptedVarName := targetVarName
 		fieldNames := names.New(fieldName)
 		if fieldConfig.IsReadOnly {
-			out += fmt.Sprintf(
-				"%s%s.%s = %s.Attributes[\"%s\"]\n",
-				indent,
-				targetVarName,
-				fieldNames.Camel,
-				sourceVarName,
-				fieldName,
-			)
+			targetAdaptedVarName += ".Status"
+		} else {
+			targetAdaptedVarName += ".Spec"
 		}
+		out += fmt.Sprintf(
+			"%s%s.%s = %s.Attributes[\"%s\"]\n",
+			indent,
+			targetAdaptedVarName,
+			fieldNames.Camel,
+			sourceVarName,
+			fieldName,
+		)
 	}
 	return out
 }

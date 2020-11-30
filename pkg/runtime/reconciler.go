@@ -162,7 +162,9 @@ func (r *reconciler) sync(
 			// (example: ko.Status.Conditions) which have been
 			// updated in the resource
 			// Thus, patchResource() call should be made here
-			_ = r.patchResource(ctx, desired, latest)
+			if patchErr := r.patchResource(ctx, desired, latest); patchErr != nil {
+				return patchErr
+			}
 		}
 		if err != ackerr.NotFound {
 			return err
@@ -187,7 +189,9 @@ func (r *reconciler) sync(
 				// (example: ko.Status.Conditions) which have been
 				// updated in the resource
 				// Thus, patchResource() call should be made here
-				_ = r.patchResource(ctx, desired, latest)
+				if patchErr := r.patchResource(ctx, desired, latest); patchErr != nil {
+					return patchErr
+				}
 			}
 			return err
 		}
@@ -210,9 +214,8 @@ func (r *reconciler) sync(
 		// Before we update the backend AWS service resources, let's first update
 		// the latest status of CR which was retrieved by ReadOne call.
 		// Else, latest read status is lost in-case Update call fails with error.
-		err = r.patchResource(ctx, desired, latest)
-		if err != nil {
-			return err
+		if patchErr := r.patchResource(ctx, desired, latest); patchErr != nil {
+			return patchErr
 		}
 		latest, err = rm.Update(ctx, desired, latest, diffReporter)
 		if err != nil {
@@ -222,7 +225,9 @@ func (r *reconciler) sync(
 				// (example: ko.Status.Conditions) which have been
 				// updated in the resource
 				// Thus, patchResource() call should be made here
-				_ = r.patchResource(ctx, desired, latest)
+				if patchErr := r.patchResource(ctx, desired, latest); patchErr != nil {
+					return patchErr
+				}
 			}
 			return err
 		}

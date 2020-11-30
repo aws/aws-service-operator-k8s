@@ -2,16 +2,20 @@ package compare
 
 import (
 	"fmt"
-	"github.com/google/go-cmp/cmp"
+	"reflect"
 	"strings"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 type DiffItem struct {
 	Path string
+	x reflect.Value
+	y reflect.Value
 }
 
 func (diff *DiffItem) String() string {
-	return fmt.Sprintf("%#v\n", diff.Path)
+	return fmt.Sprintf("%s (x: %s y: %s)", diff.Path, diff.x.Elem(), diff.y.Elem())
 }
 
 type Reporter struct {
@@ -29,7 +33,8 @@ func (reporter *Reporter) PopStep() {
 
 func (reporter *Reporter) Report(result cmp.Result) {
 	if !result.Equal() {
-		reporter.Differences = append(reporter.Differences, DiffItem{reporter.path.String()})
+		vx, vy := reporter.path.Last().Values()
+		reporter.Differences = append(reporter.Differences, DiffItem{reporter.path.String(), vx, vy})
 	}
 }
 

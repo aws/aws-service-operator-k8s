@@ -123,7 +123,9 @@ func TestSQS_Queue(t *testing.T) {
 	if r.ko.Spec.VisibilityTimeout != nil {
 		attrMap["VisibilityTimeout"] = r.ko.Spec.VisibilityTimeout
 	}
-	res.SetAttributes(attrMap)
+	if len(attrMap) > 0 {
+		res.SetAttributes(attrMap)
+	}
 	if r.ko.Spec.QueueName != nil {
 		res.SetQueueName(*r.ko.Spec.QueueName)
 	}
@@ -171,15 +173,26 @@ func TestSQS_Queue(t *testing.T) {
 	// (and thus in the Spec fields). One of them is the resource's ARN which
 	// is handled specially.
 	expGetAttrsOutput := `
+	ko.Spec.ContentBasedDeduplication = resp.Attributes["ContentBasedDeduplication"]
 	ko.Status.CreatedTimestamp = resp.Attributes["CreatedTimestamp"]
+	ko.Spec.DelaySeconds = resp.Attributes["DelaySeconds"]
+	ko.Spec.FifoQueue = resp.Attributes["FifoQueue"]
+	ko.Spec.KMSDataKeyReusePeriodSeconds = resp.Attributes["KmsDataKeyReusePeriodSeconds"]
+	ko.Spec.KMSMasterKeyID = resp.Attributes["KmsMasterKeyId"]
 	ko.Status.LastModifiedTimestamp = resp.Attributes["LastModifiedTimestamp"]
+	ko.Spec.MaximumMessageSize = resp.Attributes["MaximumMessageSize"]
+	ko.Spec.MessageRetentionPeriod = resp.Attributes["MessageRetentionPeriod"]
+	ko.Spec.Policy = resp.Attributes["Policy"]
 	if ko.Status.ACKResourceMetadata == nil {
 		ko.Status.ACKResourceMetadata = &ackv1alpha1.ResourceMetadata{}
 	}
 	tmpARN := ackv1alpha1.AWSResourceName(*resp.Attributes["QueueArn"])
 	ko.Status.ACKResourceMetadata.ARN = &tmpARN
+	ko.Spec.ReceiveMessageWaitTimeSeconds = resp.Attributes["ReceiveMessageWaitTimeSeconds"]
+	ko.Spec.RedrivePolicy = resp.Attributes["RedrivePolicy"]
+	ko.Spec.VisibilityTimeout = resp.Attributes["VisibilityTimeout"]
 `
-	assert.Equal(expGetAttrsOutput, crd.GoCodeGetAttributesSetOutput("resp", "ko.Status", 1))
+	assert.Equal(expGetAttrsOutput, crd.GoCodeGetAttributesSetOutput("resp", "ko", 1))
 
 	expRequiredFieldsCode := `
 	return r.ko.Status.QueueURL == nil

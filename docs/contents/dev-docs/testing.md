@@ -6,6 +6,7 @@ through the steps to test ACK for the currently supported AWS services:
 - Amazon ECR
 - Amazon S3
 - Amazon SNS
+* Amazon SQS
 - Amazon API Gateway V2
 - Amazon DynamoDB
 - [Amazon ElastiCache](https://github.com/aws/aws-controllers-k8s/tree/main/services/elasticache)

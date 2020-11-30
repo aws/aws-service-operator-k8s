@@ -146,7 +146,9 @@ func TestSNS_Topic(t *testing.T) {
 	if r.ko.Spec.Policy != nil {
 		attrMap["Policy"] = r.ko.Spec.Policy
 	}
-	res.SetAttributes(attrMap)
+	if len(attrMap) > 0 {
+		res.SetAttributes(attrMap)
+	}
 	if r.ko.Spec.Name != nil {
 		res.SetName(*r.ko.Spec.Name)
 	}
@@ -203,16 +205,20 @@ func TestSNS_Topic(t *testing.T) {
 	// (and thus in the Spec fields). Two of them are the tesource's ARN and
 	// AWS Owner account ID, both of which are handled specially.
 	expGetAttrsOutput := `
+	ko.Spec.DeliveryPolicy = resp.Attributes["DeliveryPolicy"]
+	ko.Spec.DisplayName = resp.Attributes["DisplayName"]
 	ko.Status.EffectiveDeliveryPolicy = resp.Attributes["EffectiveDeliveryPolicy"]
+	ko.Spec.KMSMasterKeyID = resp.Attributes["KmsMasterKeyId"]
 	if ko.Status.ACKResourceMetadata == nil {
 		ko.Status.ACKResourceMetadata = &ackv1alpha1.ResourceMetadata{}
 	}
 	tmpOwnerID := ackv1alpha1.AWSAccountID(*resp.Attributes["Owner"])
 	ko.Status.ACKResourceMetadata.OwnerAccountID = &tmpOwnerID
+	ko.Spec.Policy = resp.Attributes["Policy"]
 	tmpARN := ackv1alpha1.AWSResourceName(*resp.Attributes["TopicArn"])
 	ko.Status.ACKResourceMetadata.ARN = &tmpARN
 `
-	assert.Equal(expGetAttrsOutput, crd.GoCodeGetAttributesSetOutput("resp", "ko.Status", 1))
+	assert.Equal(expGetAttrsOutput, crd.GoCodeGetAttributesSetOutput("resp", "ko", 1))
 
 	// The Go code for checking the GetTopicAttributes Input shape's required
 	// fields needs to return false when any required field is missing in the
