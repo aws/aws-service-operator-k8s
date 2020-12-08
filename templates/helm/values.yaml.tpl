@@ -26,6 +26,7 @@ resources:
 aws:
   # If specified, use the AWS region for AWS API calls
   region: ""
+  credentialsSecretName: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
