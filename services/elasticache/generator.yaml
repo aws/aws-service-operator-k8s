@@ -53,6 +53,19 @@ resources:
         from:
           operation: DescribeEvents
           path: Events
+      ServiceUpdates:
+        is_read_only: true
+        from:
+          operation: DescribeServiceUpdates
+          path: ServiceUpdates
+      UpdateActions:
+        is_read_only: true
+        from:
+          operation: DescribeUpdateActions
+          path: UpdateActions
+      ServiceUpdateActions:
+        is_read_only: false
+        type: "[]*string"
   Snapshot:
     update_conditions_custom_method_name: CustomUpdateConditions
     exceptions:

@@ -139,4 +139,8 @@ type FieldConfig struct {
 	// From instructs the code generator that the value of the field should
 	// be retrieved from the specified operation and member path
 	From *SourceFieldConfig `json:"from,omitempty"`
+	// Type instructs the code generator that the value of the field should
+	// be defined per the specified type.
+	// For example: From field refers to a string property but a list of strings is desired
+	Type string `json:"type,omitempty"`
 }

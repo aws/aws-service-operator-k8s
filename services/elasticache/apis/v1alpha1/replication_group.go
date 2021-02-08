@@ -49,6 +49,7 @@ type ReplicationGroupSpec struct {
 	// +kubebuilder:validation:Required
 	ReplicationGroupID       *string   `json:"replicationGroupID"`
 	SecurityGroupIDs         []*string `json:"securityGroupIDs,omitempty"`
+	ServiceUpdateActions     []*string `json:"serviceUpdateActions,omitempty"`
 	SnapshotARNs             []*string `json:"snapshotARNs,omitempty"`
 	SnapshotName             *string   `json:"snapshotName,omitempty"`
 	SnapshotRetentionLimit   *int64    `json:"snapshotRetentionLimit,omitempty"`
@@ -84,8 +85,10 @@ type ReplicationGroupStatus struct {
 	MultiAZ                       *string                                `json:"multiAZ,omitempty"`
 	NodeGroups                    []*NodeGroup                           `json:"nodeGroups,omitempty"`
 	PendingModifiedValues         *ReplicationGroupPendingModifiedValues `json:"pendingModifiedValues,omitempty"`
+	ServiceUpdates                []*ServiceUpdate                       `json:"serviceUpdates,omitempty"`
 	SnapshottingClusterID         *string                                `json:"snapshottingClusterID,omitempty"`
 	Status                        *string                                `json:"status,omitempty"`
+	UpdateActions                 []*UpdateAction                        `json:"updateActions,omitempty"`
 }
 
 // ReplicationGroup is the Schema for the ReplicationGroups API

@@ -169,7 +169,68 @@ func (rm *resourceManager) customSetOutputSupplementAPIs(
 		return err
 	}
 	ko.Status.Events = events
+
+	updateActions, err := rm.provideUpdateActions(ctx, r)
+	if err != nil {
+		return err
+	}
+	ko.Status.UpdateActions = updateActions
+
+	serviceUpdates, err := rm.provideServiceUpdates(ctx, r, updateActions)
+	if err != nil {
+		return err
+	}
+	ko.Status.ServiceUpdates = serviceUpdates
+
 	return nil
+}
+
+func (rm *resourceManager) provideUpdateActions(
+	ctx context.Context,
+	r *resource,
+) ([]*svcapitypes.UpdateAction, error) {
+	// TODO: invoke API to retrieve UpdateActions for this replication group that are not complete.
+	// Not complete update action is the one which is in any of following status:
+	//  - not-applied
+	//  - waiting-to-start
+	//  - in-progress
+	//  - stopping
+	//  - stopped
+	//  - scheduling
+	//  - scheduled
+	// Pagination:
+	// input := &elasticache.DescribeUpdateActionsInput{}
+	// input.SetMarker
+	// input.SetMaxRecords
+	// input.SetReplicationGroupIds - replication group id
+	// input.SetServiceUpdateStatus - "available"
+	// input.SetUpdateActionStatus - "not-applied", "waiting-to-start", "in-progress", "stopping", "stopped", "scheduling", "scheduled"
+	// resp, err := rm.sdkapi.DescribeUpdateActionsWithContext(ctx, input)
+	// resp.UpdateActions - collect these
+	// resp.Marker - to retrieve next page
+
+	return nil, nil
+}
+
+func (rm *resourceManager) provideServiceUpdates(
+	ctx context.Context,
+	r *resource,
+	updateActions []*svcapitypes.UpdateAction,
+) ([]*svcapitypes.ServiceUpdate, error) {
+	// TODO:
+	// for each UpdateAction,
+	// get ServiceUpdate (invoke API if service update is not already available in r.ko.Status.ServiceUpdates)
+	// Pagination:
+	// input := &elasticache.DescribeServiceUpdatesInput{}
+	// input.SetMarker
+	// input.SetMaxRecords
+	// input.SetServiceUpdateName - service update name
+	// input.SetServiceUpdateStatus - "available"
+	// resp, err := rm.sdkapi.DescribeServiceUpdatesWithContext(ctx, input)
+	// resp.ServiceUpdates - collect these
+	// resp.Marker - to retrieve next page
+
+	return nil, nil
 }
 
 func (rm *resourceManager) provideEvents(

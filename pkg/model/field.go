@@ -15,6 +15,7 @@ package model
 
 import (
 	awssdkmodel "github.com/aws/aws-sdk-go/private/model/api"
+	"strings"
 
 	ackgenconfig "github.com/aws/aws-controllers-k8s/pkg/generate/config"
 	"github.com/aws/aws-controllers-k8s/pkg/names"
@@ -58,8 +59,18 @@ func newField(
 	if shapeRef != nil {
 		shape = shapeRef.Shape
 	}
-	if shape != nil {
+	if cfg != nil && len(cfg.Type) > 0 {
+		gt = cfg.Type
+		if strings.HasPrefix(gt, "[]") {
+			gte = strings.TrimPrefix(gt, "[]")
+			gtwp = gte
+		}
+	} else if shape != nil {
 		gte, gt, gtwp = cleanGoType(crd.sdkAPI, crd.cfg, shape)
+		if cfg != nil && cfg.Type == "list" &&
+			shape.Type != "list" {
+			gt = "[]" + gt
+		}
 	} else {
 		gte = "string"
 		gt = "*string"

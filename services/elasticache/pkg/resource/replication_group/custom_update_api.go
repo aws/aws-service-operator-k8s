@@ -107,7 +107,67 @@ func (rm *resourceManager) CustomModifyReplicationGroup(
 		return rm.updateShardConfiguration(ctx, desired, latest)
 	}
 
+	if rm.pendingStopServiceUpdates(desired, latest) {
+		rm.stopServiceUpdates(ctx, desired, latest)
+	}
+	if rm.pendingApplyServiceUpdates(desired, latest) {
+		rm.applyServiceUpdates(ctx, desired, latest)
+	}
+
 	return rm.modifyReplicationGroup(ctx, desired, latest)
+}
+
+// pendingApplyServiceUpdates returns true if service updates from Spec.ServiceUpdateActions
+// are pending (i.e "not-applied", "stopped") as per latest Status.UpdateActions details.
+func (rm *resourceManager) pendingApplyServiceUpdates(
+	desired *resource,
+	latest *resource,
+) bool {
+	// TODO: implement the logic per method description
+	return false
+}
+
+// applyServiceUpdates applies the service updates.
+func (rm *resourceManager) applyServiceUpdates(
+	ctx context.Context,
+	desired *resource,
+	latest *resource,
+) error {
+	// Select Spec.UpdateActions that are in "not-applied", "stopped" state
+	// and are present in Spec.ServiceUpdateActions
+	// TODO: apply identified service updates for this replication group
+	// input := &elasticache.BatchApplyUpdateActionInput{}
+	// input.SetReplicationGroupIds - replication group id
+	// input.SetServiceUpdateName - service update name
+	// resp, err := rm.sdkapi.BatchApplyUpdateActionWithContext(ctx, input)
+	return nil
+}
+
+// pendingStopServiceUpdates returns true if there exist Spec.UpdateActions that are
+// being applied (i.e. "waiting-to-start", "in-progress", "scheduling", "scheduled")
+// but are not present (i.e. have been removed) in Spec.ServiceUpdateActions
+func (rm *resourceManager) pendingStopServiceUpdates(
+	desired *resource,
+	latest *resource,
+) bool {
+	// TODO: implement the logic per method description
+	return false
+}
+
+// stopServiceUpdates stops the service updates for this replication group
+func (rm *resourceManager) stopServiceUpdates(
+	ctx context.Context,
+	desired *resource,
+	latest *resource,
+) error {
+	// Select Spec.UpdateActions that are in "waiting-to-start", "in-progress", "scheduling", "scheduled" state
+	// but are not present (i.e. have been removed) in Spec.ServiceUpdateActions
+	// TODO: stop identified service updates for this replication group
+	// input := &elasticache.BatchStopUpdateActionInput{}
+	// input.SetReplicationGroupIds - replication group id
+	// input.SetServiceUpdateName - service update name
+	// resp, err := rm.sdkapi.BatchStopUpdateActionWithContext(ctx, input)
+	return nil
 }
 
 // modifyReplicationGroup updates replication group

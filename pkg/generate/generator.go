@@ -18,9 +18,12 @@ import (
 	"sort"
 	"strings"
 
+	awssdkmodel "github.com/aws/aws-sdk-go/private/model/api"
+
 	ackgenconfig "github.com/aws/aws-controllers-k8s/pkg/generate/config"
-	"github.com/aws/aws-controllers-k8s/pkg/generate/templateset"
 	ackmodel "github.com/aws/aws-controllers-k8s/pkg/model"
+
+	"github.com/aws/aws-controllers-k8s/pkg/generate/templateset"
 	"github.com/aws/aws-controllers-k8s/pkg/names"
 	"github.com/aws/aws-controllers-k8s/pkg/util"
 )
@@ -131,15 +134,20 @@ func (g *Generator) GetCRDs() ([]*ackmodel.CRD, error) {
 				// It's a Status field...
 				continue
 			}
-			if fieldConfig.From == nil {
+			if fieldConfig.From == nil && len(fieldConfig.Type) == 0 {
 				// Isn't an additional Spec field...
 				continue
 			}
+
+			var memberShapeRef *awssdkmodel.ShapeRef = nil
+			var found bool = false
 			from := fieldConfig.From
-			memberShapeRef, found := g.SDKAPI.GetInputShapeRef(
-				from.Operation, from.Path,
-			)
-			if found {
+			if from != nil {
+				memberShapeRef, found = g.SDKAPI.GetInputShapeRef(
+					from.Operation, from.Path,
+				)
+			}
+			if found || len(fieldConfig.Type) > 0 {
 				memberNames := names.New(targetFieldName)
 				field := crd.AddSpecField(memberNames, memberShapeRef)
 
@@ -198,15 +206,19 @@ func (g *Generator) GetCRDs() ([]*ackmodel.CRD, error) {
 				// It's a Spec field...
 				continue
 			}
-			if fieldConfig.From == nil {
+			if fieldConfig.From == nil && len(fieldConfig.Type) == 0 {
 				// Isn't an additional Status field...
 				continue
 			}
+			var memberShapeRef *awssdkmodel.ShapeRef = nil
+			var found bool = false
 			from := fieldConfig.From
-			memberShapeRef, found := g.SDKAPI.GetOutputShapeRef(
-				from.Operation, from.Path,
-			)
-			if found {
+			if from != nil {
+				memberShapeRef, found = g.SDKAPI.GetOutputShapeRef(
+					from.Operation, from.Path,
+				)
+			}
+			if found || len(fieldConfig.Type) > 0 {
 				memberNames := names.New(targetFieldName)
 				field := crd.AddStatusField(memberNames, memberShapeRef)
 

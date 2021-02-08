@@ -1975,6 +1975,17 @@ func (in *ReplicationGroupSpec) DeepCopyInto(out *ReplicationGroupSpec) {
 			}
 		}
 	}
+	if in.ServiceUpdateActions != nil {
+		in, out := &in.ServiceUpdateActions, &out.ServiceUpdateActions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.SnapshotARNs != nil {
 		in, out := &in.SnapshotARNs, &out.SnapshotARNs
 		*out = make([]*string, len(*in))
@@ -2169,6 +2180,17 @@ func (in *ReplicationGroupStatus) DeepCopyInto(out *ReplicationGroupStatus) {
 		*out = new(ReplicationGroupPendingModifiedValues)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.ServiceUpdates != nil {
+		in, out := &in.ServiceUpdates, &out.ServiceUpdates
+		*out = make([]*ServiceUpdate, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(ServiceUpdate)
+				(*in).DeepCopyInto(*out)
+			}
+		}
+	}
 	if in.SnapshottingClusterID != nil {
 		in, out := &in.SnapshottingClusterID, &out.SnapshottingClusterID
 		*out = new(string)
@@ -2178,6 +2200,17 @@ func (in *ReplicationGroupStatus) DeepCopyInto(out *ReplicationGroupStatus) {
 		in, out := &in.Status, &out.Status
 		*out = new(string)
 		**out = **in
+	}
+	if in.UpdateActions != nil {
+		in, out := &in.UpdateActions, &out.UpdateActions
+		*out = make([]*UpdateAction, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(UpdateAction)
+				(*in).DeepCopyInto(*out)
+			}
+		}
 	}
 }
 

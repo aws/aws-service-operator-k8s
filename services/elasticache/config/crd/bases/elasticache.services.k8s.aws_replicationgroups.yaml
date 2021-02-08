@@ -118,6 +118,10 @@ spec:
                 items:
                   type: string
                 type: array
+              serviceUpdateActions:
+                items:
+                  type: string
+                type: array
               snapshotARNs:
                 items:
                   type: string
@@ -341,10 +345,65 @@ spec:
                         type: array
                     type: object
                 type: object
+              serviceUpdates:
+                items:
+                  properties:
+                    autoUpdateAfterRecommendedApplyByDate:
+                      type: boolean
+                    engine:
+                      type: string
+                    engineVersion:
+                      type: string
+                    estimatedUpdateTime:
+                      type: string
+                    serviceUpdateDescription:
+                      type: string
+                    serviceUpdateEndDate:
+                      format: date-time
+                      type: string
+                    serviceUpdateName:
+                      type: string
+                    serviceUpdateRecommendedApplyByDate:
+                      format: date-time
+                      type: string
+                    serviceUpdateReleaseDate:
+                      format: date-time
+                      type: string
+                  type: object
+                type: array
               snapshottingClusterID:
                 type: string
               status:
                 type: string
+              updateActions:
+                items:
+                  properties:
+                    cacheClusterID:
+                      type: string
+                    engine:
+                      type: string
+                    estimatedUpdateTime:
+                      type: string
+                    nodesUpdated:
+                      type: string
+                    replicationGroupID:
+                      type: string
+                    serviceUpdateName:
+                      type: string
+                    serviceUpdateRecommendedApplyByDate:
+                      format: date-time
+                      type: string
+                    serviceUpdateReleaseDate:
+                      format: date-time
+                      type: string
+                    updateActionAvailableDate:
+                      format: date-time
+                      type: string
+                    updateActionStatusModifiedDate:
+                      format: date-time
+                      type: string
+                  type: object
+                type: array
             required:
             - ackResourceMetadata
             - conditions
