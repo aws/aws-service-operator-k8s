@@ -62,3 +62,18 @@ aws_account_id() {
     JSON=$(daws sts get-caller-identity --output json || exit 1)
     echo "${JSON}" | jq --raw-output ".Account"
 }
+
+# eks_oidc_provider function provides OIDC Provider for given EKS Cluster.
+# It accepts 1 argument:
+#  - EKS_CLUSTER_NAME: name of the EKS Cluster.
+eks_oidc_provider() {
+    if [[ $# -ne 1 ]]; then
+      echo "FATAL: Wrong number of arguments passed to ${FUNCNAME[0]}"
+      echo "Usage: ${FUNCNAME[0]} EKS_CLUSTER_NAME"
+      exit 1
+    fi
+    local EKS_CLUSTER_NAME="$1"
+    local OIDC_PROVIDER_JSON=$(daws eks describe-cluster --name "$EKS_CLUSTER_NAME" --query "cluster.identity.oidc" --output json || exit 1 )
+    local OIDC_PROVIDER=$(echo "${OIDC_PROVIDER_JSON}" | jq -re ".issuer // empty" | sed -e "s/^https:\/\///")
+    echo "${OIDC_PROVIDER}"
+}

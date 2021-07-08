@@ -73,6 +73,15 @@ delete-all-kind-clusters:	## Delete all local kind clusters
 	done
 	@rm -rf build/tmp-test*
 
+eks-test: ## Run functional tests for SERVICE using EKS_CLUSTER_NAME
+	@./scripts/eks-helm-test.sh $(AWS_SERVICE)
+
+eks-setup-irsa: ## Setup IRSA for SERVICE using EKS_CLUSTER_NAME
+	@./scripts/eks-setup-irsa.sh $(AWS_SERVICE)
+
+cleanup-eks-test-tmp-files: ## Delete all temporary file, directories created for EKS test
+	@rm -rf build/tmp-eks-test*
+
 help:           ## Show this help.
 	@grep -F -h "##" $(MAKEFILE_LIST) | grep -F -v grep | sed -e 's/\\$$//' \
 		| awk -F'[:#]' '{print $$1 = sprintf("%-30s", $$1), $$4}'

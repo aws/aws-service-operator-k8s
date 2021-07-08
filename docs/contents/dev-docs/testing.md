@@ -1,5 +1,7 @@
 # Testing
 
+## Build controller locally from source and test using local `kind` cluster
+
 In the following, we will take you through the steps to run end-to-end (e2e)
 tests for the ACK service controller for S3. You may use these steps to run e2e
 tests for other ACK service controllers.
@@ -8,7 +10,7 @@ If you run into any problems when testing a service controller, please
 [raise an issue](https://github.com/aws-controllers-k8s/community/issues/new/choose)
 with the details so we can reproduce your issue.
 
-## Prerequisites
+### Prerequisites
 
 For local development and testing we use "Kubernetes in Docker" (`kind`), 
 which in turn requires Docker.
@@ -46,11 +48,11 @@ You should have forked this repository and `git clone`'d it locally when
 With the prerequisites out of the way, let's move on to running e2e tests for a
 service controller.
 
-## Run tests
+### Run tests
 
 Time to run the end-to-end test.
 
-### IAM setup
+#### IAM setup
 
 In order for the ACK service controller to manage the S3 bucket, it needs an
 identity. In other words, it needs an IAM role that represents the ACK service
@@ -131,7 +133,7 @@ export ACK_ROLE_ARN=arn:aws:iam::${AWS_ACCOUNT_ID}:role/${ACK_TEST_IAM_ROLE}
 
 Phew that was a lot to set up, but good news: you're almost there.
 
-### Run end-to-end test
+#### Run end-to-end test
 
 Before you proceed, make sure that you've done the IAM setup in the previous
 step.
@@ -211,14 +213,14 @@ As you can see, in above case the end-to-end test (creating cluster, deploying
 ACK, applying custom resources, and tear-down) took less than 30 seconds. This
 is for the warmed caches case.
 
-#### Repeat for other services
+##### Repeat for other services
 
 We have end-to-end tests for all services listed in the `DEVELOPER-PREVIEW`,
 `BETA` and `GA` release statuses in our [service listing](../services)
 document. Simply replace your `SERVICE` environment variable with the name of a
 supported service and re-run the IAM and test steps outlined above.
 
-### Background
+#### Background
 
 We use [mockery](https://github.com/vektra/mockery) for unit testing.
 You can install it by following the guideline on mockery's GitHub or simply
@@ -230,7 +232,7 @@ We track testing in the umbrella [issue 6](https://github.com/aws-controllers-k8
 on GitHub. Use this issue as a starting point and if you create a new
 testing-related issue, mention it from there.
 
-## Clean up
+### Clean up
 
 To clean up a `kind` cluster, including the container images and configuration 
 files created by the script specifically for said test cluster, execute:
@@ -246,3 +248,57 @@ make delete-all-kind-clusters
 
 With this the testing is completed. Thanks for your time and we appreciate your
 feedback.
+
+## Installing helm charts from ECR repository and test on Amazon EKS cluster
+This section contains steps to test ACK service controller using helm chart and Amazon EKS cluster.
+These steps take ACK ElastiCache controller as example and require Amazon EKS cluster. 
+
+Refer Amazon EKS [documentation](https://docs.aws.amazon.com/eks/index.html) to get details on creating Amazon EKS cluster.
+
+Depending upon [Amazon EKS cluster endpoint access control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
+setup for the Amazon EKS cluster, following steps are to be executed from a host that can access the EKS cluster endpoint used for testing.
+
+### Clone ACK `community` repository
+ACK [community](https://github.com/aws-controllers-k8s/community) repository contains scripts used for testing.
+
+Clone ACK `community` repository on the test runner host.
+```bash
+# cd <directory to run the tests from>
+git clone https://github.com/aws-controllers-k8s/community.git community
+cd community
+```
+
+### Setup IRSA
+
+If no IAM OIDC provider is set for Amazon EKS cluster, follow the instructions to set it: 
+[Create an IAM OIDC provider for your cluster ](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html)
+For example:
+```bash
+EKS_CLUSTER_NAME=<eks cluster name>
+eksctl utils associate-iam-oidc-provider --cluster $EKS_CLUSTER_NAME --approve
+```
+The above example uses `eksctl` utility. To install it, follow: [installing-eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl)
+
+Once the IAM OIDC provider is set for Amazon EKS Cluster, setup IRSA on Amazon EKS cluster:
+```bash
+# cd community
+export AWS_REGION=us-west-2
+export EKS_CLUSTER_NAME="eks_cluster_name"
+export IAM_POLICY_ARN='arn:aws:iam::aws:policy/AmazonElastiCacheFullAccess'
+export SERVICE=elasticache 
+make eks-setup-irsa
+```
+
+For details on IRSA setup, refer [IRSA setup on Amazon EKS cluster](../../irsa.md) document and 
+[IAM roles for service accounts](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html).
+
+### Install `helm` chart and run end-to-end tests
+```bash
+# cd community
+export AWS_REGION=us-west-2
+export EKS_CLUSTER_NAME="eks_cluster_name"
+export SERVICE=elasticache
+export ACK_CONTROLLER_RELEASE_VERSION=v0.0.3
+export IRSA_ROLE_ARN=<irsa role arn>
+make eks-test
+```

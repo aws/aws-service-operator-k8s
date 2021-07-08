@@ -144,7 +144,7 @@ To associate an IAM role to service account:
 ```
 # annotate service account with service role arn.
 ISRA_ROLE_ARN=<role arn>
-kubectl annotate serviceaccount -n $ACK_K8S_NAMESPACE $ACK_K8S_SERVICE_ACCOUNT_NAME $ISRA_ROLE_ARN
+kubectl annotate serviceaccount -n $ACK_K8S_NAMESPACE $ACK_K8S_SERVICE_ACCOUNT_NAME eks.amazonaws.com/role-arn=$ISRA_ROLE_ARN
 ```
 
 Update aws region to use in the controller, if not done already:
