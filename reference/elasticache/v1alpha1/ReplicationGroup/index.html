@@ -1,0 +1,3078 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AWS Controllers for Kubernetes">
+      
+      
+      
+        <meta name="author" content="The ACK contributors">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+    
+    
+      
+        <title>ReplicationGroup - ACK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffa724">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:300,400,400i,700%7COxygen+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Oxygen";--md-code-font-family:"Oxygen Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="orange" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#replicationgroup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="ACK" class="md-header__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ACK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ReplicationGroup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../user-docs/wip/" class="md-tabs__link">
+        User docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../dev-docs/overview/" class="md-tabs__link">
+        Contributor docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../overview/" class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../community/background/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ACK" class="md-nav__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    ACK
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      <label class="md-nav__link" for="__nav_1">
+        Home
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../services/" class="md-nav__link">
+        Services
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        User docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="User docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-docs/wip/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-docs/wip/" class="md-nav__link">
+        Permissions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-docs/wip/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Contributor docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Contributor docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Contributor docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/code-generation/" class="md-nav__link">
+        Code generation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/building-controller/" class="md-nav__link">
+        Building controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/testing/" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/release/" class="md-nav__link">
+        Release
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1" type="checkbox" id="__nav_4_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1">
+        Apigatewayv2
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apigatewayv2" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Apigatewayv2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1_1" type="checkbox" id="__nav_4_2_1_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/API/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/APIMapping/" class="md-nav__link">
+        APIMapping
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Authorizer/" class="md-nav__link">
+        Authorizer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Deployment/" class="md-nav__link">
+        Deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/DomainName/" class="md-nav__link">
+        DomainName
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Integration/" class="md-nav__link">
+        Integration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/IntegrationResponse/" class="md-nav__link">
+        IntegrationResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Route/" class="md-nav__link">
+        Route
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/RouteResponse/" class="md-nav__link">
+        RouteResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Stage/" class="md-nav__link">
+        Stage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/VPCLink/" class="md-nav__link">
+        VPCLink
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2">
+        Applicationautoscaling
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Applicationautoscaling" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Applicationautoscaling
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2_1" type="checkbox" id="__nav_4_2_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../applicationautoscaling/v1alpha1/ScalableTarget/" class="md-nav__link">
+        ScalableTarget
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../applicationautoscaling/v1alpha1/ScalingPolicy/" class="md-nav__link">
+        ScalingPolicy
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3" type="checkbox" id="__nav_4_2_3" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3">
+        Dynamodb
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dynamodb" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Dynamodb
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3_1" type="checkbox" id="__nav_4_2_3_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dynamodb/v1alpha1/Backup/" class="md-nav__link">
+        Backup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dynamodb/v1alpha1/GlobalTable/" class="md-nav__link">
+        GlobalTable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dynamodb/v1alpha1/Table/" class="md-nav__link">
+        Table
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4" type="checkbox" id="__nav_4_2_4" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4">
+        Ecr
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Ecr" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ecr
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4_1" type="checkbox" id="__nav_4_2_4_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ecr/v1alpha1/Repository/" class="md-nav__link">
+        Repository
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5" type="checkbox" id="__nav_4_2_5" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2_5">
+        Elasticache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticache" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5_1" type="checkbox" id="__nav_4_2_5_1" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2_5_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CacheParameterGroup/" class="md-nav__link">
+        CacheParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CacheSubnetGroup/" class="md-nav__link">
+        CacheSubnetGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          ReplicationGroup
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        ReplicationGroup
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec" class="md-nav__link">
+    Spec
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Snapshot/" class="md-nav__link">
+        Snapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../User/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UserGroup/" class="md-nav__link">
+        UserGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6" type="checkbox" id="__nav_4_2_6" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6">
+        Elasticsearchservice
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticsearchservice" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticsearchservice
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6_1" type="checkbox" id="__nav_4_2_6_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticsearchservice/v1alpha1/ElasticsearchDomain/" class="md-nav__link">
+        ElasticsearchDomain
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7" type="checkbox" id="__nav_4_2_7" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7">
+        Kms
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Kms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7_1" type="checkbox" id="__nav_4_2_7_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/Alias/" class="md-nav__link">
+        Alias
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/CustomKeyStore/" class="md-nav__link">
+        CustomKeyStore
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/Grant/" class="md-nav__link">
+        Grant
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/Key/" class="md-nav__link">
+        Key
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8" type="checkbox" id="__nav_4_2_8" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8">
+        Mq
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Mq" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Mq
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8_1" type="checkbox" id="__nav_4_2_8_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mq/v1alpha1/Broker/" class="md-nav__link">
+        Broker
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9" type="checkbox" id="__nav_4_2_9" >
+      
+      <label class="md-nav__link" for="__nav_4_2_9">
+        Rds
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Rds" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Rds
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9_1" type="checkbox" id="__nav_4_2_9_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_9_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rds/v1alpha1/DBCluster/" class="md-nav__link">
+        DBCluster
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rds/v1alpha1/DBClusterParameterGroup/" class="md-nav__link">
+        DBClusterParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rds/v1alpha1/DBInstance/" class="md-nav__link">
+        DBInstance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rds/v1alpha1/DBParameterGroup/" class="md-nav__link">
+        DBParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rds/v1alpha1/DBSecurityGroup/" class="md-nav__link">
+        DBSecurityGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rds/v1alpha1/DBSubnetGroup/" class="md-nav__link">
+        DBSubnetGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10" type="checkbox" id="__nav_4_2_10" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10">
+        S3
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="S3" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          S3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10_1" type="checkbox" id="__nav_4_2_10_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../s3/v1alpha1/Bucket/" class="md-nav__link">
+        Bucket
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11" type="checkbox" id="__nav_4_2_11" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11">
+        Sagemaker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sagemaker" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Sagemaker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11_1" type="checkbox" id="__nav_4_2_11_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_11_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/DataQualityJobDefinition/" class="md-nav__link">
+        DataQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/Endpoint/" class="md-nav__link">
+        Endpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/EndpointConfig/" class="md-nav__link">
+        EndpointConfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/HyperParameterTuningJob/" class="md-nav__link">
+        HyperParameterTuningJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ModelBiasJobDefinition/" class="md-nav__link">
+        ModelBiasJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ModelExplainabilityJobDefinition/" class="md-nav__link">
+        ModelExplainabilityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ModelQualityJobDefinition/" class="md-nav__link">
+        ModelQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/MonitoringSchedule/" class="md-nav__link">
+        MonitoringSchedule
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ProcessingJob/" class="md-nav__link">
+        ProcessingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/TrainingJob/" class="md-nav__link">
+        TrainingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/TransformJob/" class="md-nav__link">
+        TransformJob
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12" type="checkbox" id="__nav_4_2_12" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12">
+        Sfn
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sfn" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Sfn
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12_1" type="checkbox" id="__nav_4_2_12_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_12_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sfn/v1alpha1/Activity/" class="md-nav__link">
+        Activity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sfn/v1alpha1/StateMachine/" class="md-nav__link">
+        StateMachine
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13" type="checkbox" id="__nav_4_2_13" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13">
+        Sns
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sns" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_13">
+          <span class="md-nav__icon md-icon"></span>
+          Sns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13_1" type="checkbox" id="__nav_4_2_13_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_13_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sns/v1alpha1/PlatformApplication/" class="md-nav__link">
+        PlatformApplication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sns/v1alpha1/PlatformEndpoint/" class="md-nav__link">
+        PlatformEndpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sns/v1alpha1/Topic/" class="md-nav__link">
+        Topic
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14" type="checkbox" id="__nav_4_2_14" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14">
+        Sqs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sqs" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_14">
+          <span class="md-nav__icon md-icon"></span>
+          Sqs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14_1" type="checkbox" id="__nav_4_2_14_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_14_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sqs/v1alpha1/Queue/" class="md-nav__link">
+        Queue
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Community
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../community/background/" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../community/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../community/discussions/" class="md-nav__link">
+        Discussions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/CONTRIBUTING.md" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/GOVERNANCE.md" class="md-nav__link">
+        Governance
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec" class="md-nav__link">
+    Spec
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/aws-controllers-k8s/edit/master/docs/reference/elasticache/v1alpha1/ReplicationGroup.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="replicationgroup">ReplicationGroup<a class="headerlink" href="#replicationgroup" title="Permanent link">&para;</a></h1>
+<p><code>elasticache.services.k8s.aws/v1alpha1</code></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GoDoc</td>
+<td><a href="https://pkg.go.dev/github.com/aws-controllers-k8s/elasticache-controller/apis/v1alpha1#ReplicationGroup">elasticache-controller/apis/v1alpha1#ReplicationGroup</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Namespaced</td>
+</tr>
+<tr>
+<td>Kind</td>
+<td><code>ReplicationGroup</code></td>
+</tr>
+<tr>
+<td>ListKind</td>
+<td><code>ReplicationGroupList</code></td>
+</tr>
+<tr>
+<td>Plural</td>
+<td><code>replicationgroups</code></td>
+</tr>
+<tr>
+<td>Singular</td>
+<td><code>replicationgroup</code></td>
+</tr>
+</tbody>
+</table>
+<p>Contains all of the attributes of a specific Redis replication group.</p>
+<h2 id="spec">Spec<a class="headerlink" href="#spec" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">atRestEncryptionEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">authToken</span><span class="p">:</span>
+  <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">autoMinorVersionUpgrade</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">automaticFailoverEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">cacheNodeType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">cacheParameterGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">cacheSecurityGroupNames</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">cacheSubnetGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">engine</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">engineVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">kmsKeyID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">logDeliveryConfigurations</span><span class="p">:</span>
+<span class="nt">destinationDetails</span><span class="p">:</span>
+  <span class="nt">cloudWatchLogsDetails</span><span class="p">:</span>
+      <span class="nt">logGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+  <span class="nt">kinesisFirehoseDetails</span><span class="p">:</span>
+      <span class="nt">deliveryStream</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+
+  <span class="nt">destinationType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+  <span class="nt">logFormat</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">logType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">multiAZEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">nodeGroupConfiguration</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">nodeGroupID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">primaryAvailabilityZone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">primaryOutpostARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">replicaAvailabilityZones</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">replicaCount</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+  <span class="nt">replicaOutpostARNs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">slots</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">notificationTopicARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">numCacheClusters</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">numNodeGroups</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">preferredCacheClusterAZs</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">preferredMaintenanceWindow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">primaryClusterID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">replicasPerNodeGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">replicationGroupDescription</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">replicationGroupID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">securityGroupIDs</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">snapshotARNs</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">snapshotName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">snapshotRetentionLimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">snapshotWindow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">transitEncryptionEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">userGroupIDs</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>atRestEncryptionEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A flag that enables encryption at rest when set to true. <br/> You cannot modify the value of AtRestEncryptionEnabled after the replication group is created. To enable encryption at rest on a replication group you must set AtRestEncryptionEnabled to true when you create the replication group. <br/> Required: Only available when creating a replication group in an Amazon VPC using redis version 3.2.6, 4.x or later. <br/> Default: false</td>
+</tr>
+<tr>
+<td><strong>authToken</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Reserved parameter. The password used to access a password protected server. <br/> AuthToken can be specified only on replication groups where TransitEncryptionEnabled is true. <br/> For HIPAA compliance, you must specify TransitEncryptionEnabled as true, an AuthToken, and a CacheSubnetGroup. <br/> Password constraints: <br/>    * Must be only printable ASCII characters. <br/>    * Must be at least 16 characters and no more than 128 characters in length. <br/>    * The only permitted printable special characters are !, &amp;, #, $, ^, &lt;,    &gt;, and -. Other printable special characters cannot be used in the AUTH    token. <br/> For more information, see AUTH password (http://redis.io/commands/AUTH) at http://redis.io/commands/AUTH.</td>
+</tr>
+<tr>
+<td><strong>authToken.key</strong><br/>Required</td>
+<td><strong>string</strong><br/>Key is the key within the secret</td>
+</tr>
+<tr>
+<td><strong>authToken.name</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Name is unique within a namespace to reference a secret resource.</td>
+</tr>
+<tr>
+<td><strong>authToken.namespace</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Namespace defines the space within which the secret name must be unique.</td>
+</tr>
+<tr>
+<td><strong>autoMinorVersionUpgrade</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>This parameter is currently disabled.</td>
+</tr>
+<tr>
+<td><strong>automaticFailoverEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>Specifies whether a read-only replica is automatically promoted to read/write primary if the existing primary fails. <br/> AutomaticFailoverEnabled must be enabled for Redis (cluster mode enabled) replication groups. <br/> Default: false</td>
+</tr>
+<tr>
+<td><strong>cacheNodeType</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The compute and memory capacity of the nodes in the node group (shard). <br/> The following node types are supported by ElastiCache. Generally speaking, the current generation types provide more memory and computational power at lower cost when compared to their equivalent previous generation counterparts. <br/>    * General purpose: Current generation: M6g node types (available only    for Redis engine version 5.0.6 onward and for Memcached engine version    1.5.16 onward). cache.m6g.large, cache.m6g.xlarge, cache.m6g.2xlarge,    cache.m6g.4xlarge, cache.m6g.8xlarge, cache.m6g.12xlarge, cache.m6g.16xlarge    For region availability, see Supported Node Types (https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion)    M5 node types: cache.m5.large, cache.m5.xlarge, cache.m5.2xlarge, cache.m5.4xlarge,    cache.m5.12xlarge, cache.m5.24xlarge M4 node types: cache.m4.large, cache.m4.xlarge,    cache.m4.2xlarge, cache.m4.4xlarge, cache.m4.10xlarge T3 node types: cache.t3.micro,    cache.t3.small, cache.t3.medium T2 node types: cache.t2.micro, cache.t2.small,    cache.t2.medium Previous generation: (not recommended) T1 node types:    cache.t1.micro M1 node types: cache.m1.small, cache.m1.medium, cache.m1.large,    cache.m1.xlarge M3 node types: cache.m3.medium, cache.m3.large, cache.m3.xlarge,    cache.m3.2xlarge <br/>    * Compute optimized: Previous generation: (not recommended) C1 node types:    cache.c1.xlarge <br/>    * Memory optimized: Current generation: R6g node types (available only    for Redis engine version 5.0.6 onward and for Memcached engine version    1.5.16 onward). cache.r6g.large, cache.r6g.xlarge, cache.r6g.2xlarge,    cache.r6g.4xlarge, cache.r6g.8xlarge, cache.r6g.12xlarge, cache.r6g.16xlarge    For region availability, see Supported Node Types (https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html#CacheNodes.SupportedTypesByRegion)    R5 node types: cache.r5.large, cache.r5.xlarge, cache.r5.2xlarge, cache.r5.4xlarge,    cache.r5.12xlarge, cache.r5.24xlarge R4 node types: cache.r4.large, cache.r4.xlarge,    cache.r4.2xlarge, cache.r4.4xlarge, cache.r4.8xlarge, cache.r4.16xlarge    Previous generation: (not recommended) M2 node types: cache.m2.xlarge,    cache.m2.2xlarge, cache.m2.4xlarge R3 node types: cache.r3.large, cache.r3.xlarge,    cache.r3.2xlarge, cache.r3.4xlarge, cache.r3.8xlarge <br/> Additional node type info <br/>    * All current generation instance types are created in Amazon VPC by default. <br/>    * Redis append-only files (AOF) are not supported for T1 or T2 instances. <br/>    * Redis Multi-AZ with automatic failover is not supported on T1 instances. <br/>    * Redis configuration variables appendonly and appendfsync are not supported    on Redis version 2.8.22 and later.</td>
+</tr>
+<tr>
+<td><strong>cacheParameterGroupName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The name of the parameter group to associate with this replication group. If this argument is omitted, the default cache parameter group for the specified engine is used. <br/> If you are running Redis version 3.2.4 or later, only one node group (shard), and want to use a default parameter group, we recommend that you specify the parameter group by name. <br/>    * To create a Redis (cluster mode disabled) replication group, use CacheParameterGroupName=default.redis3.2. <br/>    * To create a Redis (cluster mode enabled) replication group, use CacheParameterGroupName=default.redis3.2.cluster.on.</td>
+</tr>
+<tr>
+<td><strong>cacheSecurityGroupNames</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of cache security group names to associate with this replication group.</td>
+</tr>
+<tr>
+<td><strong>cacheSecurityGroupNames.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>engine</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The name of the cache engine to be used for the clusters in this replication group. Must be Redis.</td>
+</tr>
+<tr>
+<td><strong>engineVersion</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The version number of the cache engine to be used for the clusters in this replication group. To view the supported cache engine versions, use the DescribeCacheEngineVersions operation. <br/> Important: You can upgrade to a newer engine version (see Selecting a Cache Engine and Version (https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)) in the ElastiCache User Guide, but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing cluster or replication group and create it anew with the earlier engine version.</td>
+</tr>
+<tr>
+<td><strong>kmsKeyID</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The ID of the KMS key used to encrypt the disk in the cluster.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Specifies the destination, format and type of the logs.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Specifies the destination, format and type of the logs.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.cloudWatchLogsDetails</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration details of the CloudWatch Logs destination.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.cloudWatchLogsDetails.logGroup</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.kinesisFirehoseDetails</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration details of the Kinesis Data Firehose destination.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.kinesisFirehoseDetails.deliveryStream</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].enabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].logFormat</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].logType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>multiAZEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A flag indicating if you have Multi-AZ enabled to enhance fault tolerance. For more information, see Minimizing Downtime: Multi-AZ (http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html).</td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of node group (shard) configuration options. Each node group (shard) configuration has the following members: PrimaryAvailabilityZone, ReplicaAvailabilityZones, ReplicaCount, and Slots. <br/> If you're creating a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group, you can use this parameter to individually configure each node group (shard), or you can omit this parameter. However, it is required when seeding a Redis (cluster mode enabled) cluster from a S3 rdb file. You must configure each node group (shard) using this parameter because you must specify the slots for each node group.</td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Node group (shard) configuration options. Each node group (shard) configuration has the following: Slots, PrimaryAvailabilityZone, ReplicaAvailabilityZones, ReplicaCount.</td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[].primaryAvailabilityZone</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[].primaryOutpostARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[].replicaAvailabilityZones</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[].replicaAvailabilityZones.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[].replicaOutpostARNs</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroupConfiguration.[].replicaOutpostARNs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>notificationTopicARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) topic to which notifications are sent. <br/> The Amazon SNS topic owner must be the same as the cluster owner.</td>
+</tr>
+<tr>
+<td><strong>numCacheClusters</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The number of clusters this replication group initially has. <br/> This parameter is not used if there is more than one node group (shard). You should use ReplicasPerNodeGroup instead. <br/> If AutomaticFailoverEnabled is true, the value of this parameter must be at least 2. If AutomaticFailoverEnabled is false you can omit this parameter (it will default to 1), or you can explicitly set it to a value between 2 and 6. <br/> The maximum permitted value for NumCacheClusters is 6 (1 primary plus 5 replicas).</td>
+</tr>
+<tr>
+<td><strong>numNodeGroups</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>An optional parameter that specifies the number of node groups (shards) for this Redis (cluster mode enabled) replication group. For Redis (cluster mode disabled) either omit this parameter or set it to 1. <br/> Default: 1</td>
+</tr>
+<tr>
+<td><strong>port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The port number on which each member of the replication group accepts connections.</td>
+</tr>
+<tr>
+<td><strong>preferredCacheClusterAZs</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of EC2 Availability Zones in which the replication group's clusters are created. The order of the Availability Zones in the list is the order in which clusters are allocated. The primary cluster is created in the first AZ in the list. <br/> This parameter is not used if there is more than one node group (shard). You should use NodeGroupConfiguration instead. <br/> If you are creating your replication group in an Amazon VPC (recommended), you can only locate clusters in Availability Zones associated with the subnets in the selected subnet group. <br/> The number of Availability Zones listed must equal the value of NumCacheClusters. <br/> Default: system chosen Availability Zones.</td>
+</tr>
+<tr>
+<td><strong>preferredCacheClusterAZs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>primaryClusterID</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The identifier of the cluster that serves as the primary for this replication group. This cluster must already exist and have a status of available. <br/> This parameter is not required if NumCacheClusters, NumNodeGroups, or ReplicasPerNodeGroup is specified.</td>
+</tr>
+<tr>
+<td><strong>replicasPerNodeGroup</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>An optional parameter that specifies the number of replica nodes in each node group (shard). Valid values are 0 to 5.</td>
+</tr>
+<tr>
+<td><strong>replicationGroupDescription</strong><br/>Required</td>
+<td><strong>string</strong><br/>A user-created description for the replication group.</td>
+</tr>
+<tr>
+<td><strong>replicationGroupID</strong><br/>Required</td>
+<td><strong>string</strong><br/>The replication group identifier. This parameter is stored as a lowercase string. <br/> Constraints: <br/>    * A name must contain from 1 to 40 alphanumeric characters or hyphens. <br/>    * The first character must be a letter. <br/>    * A name cannot end with a hyphen or contain two consecutive hyphens.</td>
+</tr>
+<tr>
+<td><strong>securityGroupIDs</strong><br/>Optional</td>
+<td><strong>array</strong><br/>One or more Amazon VPC security groups associated with this replication group. <br/> Use this parameter only when you are creating a replication group in an Amazon Virtual Private Cloud (Amazon VPC).</td>
+</tr>
+<tr>
+<td><strong>securityGroupIDs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>snapshotARNs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>snapshotRetentionLimit</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The number of days for which ElastiCache retains automatic snapshots before deleting them. For example, if you set SnapshotRetentionLimit to 5, a snapshot that was taken today is retained for 5 days before being deleted. <br/> Default: 0 (i.e., automatic backups are disabled for this cluster).</td>
+</tr>
+<tr>
+<td><strong>snapshotWindow</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group (shard). <br/> Example: 05:00-09:00 <br/> If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.</td>
+</tr>
+<tr>
+<td><strong>transitEncryptionEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A flag that enables in-transit encryption when set to true. <br/> You cannot modify the value of TransitEncryptionEnabled after the cluster is created. To enable in-transit encryption on a cluster you must set TransitEncryptionEnabled to true when you create a cluster. <br/> This parameter is valid only if the Engine parameter is redis, the EngineVersion parameter is 3.2.6, 4.x or later, and the cluster is being created in an Amazon VPC. <br/> If you enable in-transit encryption, you must also specify a value for CacheSubnetGroup. <br/> Required: Only available when creating a replication group in an Amazon VPC using redis version 3.2.6, 4.x or later. <br/> Default: false <br/> For HIPAA compliance, you must specify TransitEncryptionEnabled as true, an AuthToken, and a CacheSubnetGroup.</td>
+</tr>
+<tr>
+<td><strong>userGroupIDs</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The user group to associate with the replication group.</td>
+</tr>
+<tr>
+<td><strong>userGroupIDs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+</tbody>
+</table>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">ackResourceMetadata</span><span class="p">:</span>
+  <span class="nt">arn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">ownerAccountID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">allowedScaleDownModifications</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">allowedScaleUpModifications</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">authTokenEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">authTokenLastModifiedDate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">automaticFailover</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">clusterEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">conditions</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">lastTransitionTime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">message</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">reason</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">configurationEndpoint</span><span class="p">:</span>
+  <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+
+<span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">events</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">date</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">message</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">sourceIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">globalReplicationGroupInfo</span><span class="p">:</span>
+  <span class="nt">globalReplicationGroupID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">globalReplicationGroupMemberRole</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">logDeliveryConfigurations</span><span class="p">:</span>
+<span class="nt">destinationDetails</span><span class="p">:</span>
+  <span class="nt">cloudWatchLogsDetails</span><span class="p">:</span>
+      <span class="nt">logGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+  <span class="nt">kinesisFirehoseDetails</span><span class="p">:</span>
+      <span class="nt">deliveryStream</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+
+  <span class="nt">destinationType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">logFormat</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">logType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">message</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">memberClusters</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">memberClustersOutpostARNs</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">multiAZ</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">nodeGroups</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">nodeGroupID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">nodeGroupMembers</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">cacheClusterID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">cacheNodeID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">currentRole</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">preferredAvailabilityZone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">preferredOutpostARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">readEndpoint</span><span class="p">:</span>
+            <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+            <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+
+
+  <span class="nt">primaryEndpoint</span><span class="p">:</span>
+      <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+
+  <span class="nt">readerEndpoint</span><span class="p">:</span>
+      <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+
+  <span class="nt">slots</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">pendingModifiedValues</span><span class="p">:</span>
+  <span class="nt">authTokenStatus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">automaticFailoverStatus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">logDeliveryConfigurations</span><span class="p">:</span>
+    <span class="nt">destinationDetails</span><span class="p">:</span>
+        <span class="nt">cloudWatchLogsDetails</span><span class="p">:</span>
+              <span class="nt">logGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+        <span class="nt">kinesisFirehoseDetails</span><span class="p">:</span>
+              <span class="nt">deliveryStream</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+
+    <span class=" -Error">  </span><span class="nt">destinationType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">logFormat</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">logType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+  <span class="nt">primaryClusterID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">resharding</span><span class="p">:</span>
+      <span class="nt">slotMigration</span><span class="p">:</span>
+            <span class="nt">progressPercentage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">number</span>
+
+
+  <span class="nt">userGroups</span><span class="p">:</span>
+      <span class="nt">userGroupIDsToAdd</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">userGroupIDsToRemove</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+
+<span class="nt">snapshottingClusterID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ackResourceMetadata</strong><br/>Required</td>
+<td><strong>object</strong><br/>All CRs managed by ACK have a common <code>Status.ACKResourceMetadata</code> member that is used to contain resource sync state, account ownership, constructed ARN for the resource</td>
+</tr>
+<tr>
+<td><strong>ackResourceMetadata.arn</strong><br/>Optional</td>
+<td><strong>string</strong><br/>ARN is the Amazon Resource Name for the resource. This is a globally-unique identifier and is set only by the ACK service controller once the controller has orchestrated the creation of the resource OR when it has verified that an "adopted" resource (a resource where the ARN annotation was set by the Kubernetes user on the CR) exists and matches the supplied CR's Spec field values. TODO(vijat@): Find a better strategy for resources that do not have ARN in CreateOutputResponse https://github.com/aws/aws-controllers-k8s/issues/270</td>
+</tr>
+<tr>
+<td><strong>ackResourceMetadata.ownerAccountID</strong><br/>Required</td>
+<td><strong>string</strong><br/>OwnerAccountID is the AWS Account ID of the account that owns the backend AWS service API resource.</td>
+</tr>
+<tr>
+<td><strong>allowedScaleDownModifications</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A string list, each element of which specifies a cache node type which you can use to scale your cluster or replication group. When scaling down a Redis cluster or replication group using ModifyCacheCluster or ModifyReplicationGroup, use a value from this list for the CacheNodeType parameter.</td>
+</tr>
+<tr>
+<td><strong>allowedScaleDownModifications.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>allowedScaleUpModifications.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>authTokenLastModifiedDate</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The date the auth token was last modified</td>
+</tr>
+<tr>
+<td><strong>automaticFailover</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Indicates the status of automatic failover for this Redis replication group.</td>
+</tr>
+<tr>
+<td><strong>clusterEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A flag indicating whether or not this replication group is cluster enabled; i.e., whether its data can be partitioned across multiple shards (API/CLI: node groups). <br/> Valid values: true</td>
+</tr>
+<tr>
+<td><strong>conditions</strong><br/>Required</td>
+<td><strong>array</strong><br/>All CRS managed by ACK have a common <code>Status.Conditions</code> member that contains a collection of <code>ackv1alpha1.Condition</code> objects that describe the various terminal states of the CR and its backend AWS service API resource</td>
+</tr>
+<tr>
+<td><strong>conditions.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Condition is the common struct used by all CRDs managed by ACK service controllers to indicate terminal states  of the CR and its backend AWS service API resource</td>
+</tr>
+<tr>
+<td><strong>conditions.[].message</strong><br/>Optional</td>
+<td><strong>string</strong><br/>A human readable message indicating details about the transition.</td>
+</tr>
+<tr>
+<td><strong>conditions.[].reason</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The reason for the condition's last transition.</td>
+</tr>
+<tr>
+<td><strong>conditions.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Status of the condition, one of True, False, Unknown.</td>
+</tr>
+<tr>
+<td><strong>conditions.[].type</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Type is the type of the Condition</td>
+</tr>
+<tr>
+<td><strong>configurationEndpoint</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration endpoint for this replication group. Use the configuration endpoint to connect to this replication group.</td>
+</tr>
+<tr>
+<td><strong>configurationEndpoint.address</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>configurationEndpoint.port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>description</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The user supplied description of the replication group.</td>
+</tr>
+<tr>
+<td><strong>events</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of events. Each element in the list contains detailed information about one event.</td>
+</tr>
+<tr>
+<td><strong>events.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Represents a single occurrence of something interesting within the system. Some examples of events are creating a cluster, adding or removing a cache node, or rebooting a node.</td>
+</tr>
+<tr>
+<td><strong>events.[].message</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>events.[].sourceIdentifier</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>globalReplicationGroupInfo</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The name of the Global datastore and role of this replication group in the Global datastore.</td>
+</tr>
+<tr>
+<td><strong>globalReplicationGroupInfo.globalReplicationGroupID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>globalReplicationGroupInfo.globalReplicationGroupMemberRole</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Returns the destination, format and type of the logs.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Returns the destination, format and type of the logs.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.cloudWatchLogsDetails</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration details of the CloudWatch Logs destination.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.cloudWatchLogsDetails.logGroup</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.kinesisFirehoseDetails</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration details of the Kinesis Data Firehose destination.</td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationDetails.kinesisFirehoseDetails.deliveryStream</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].destinationType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].logFormat</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].logType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].message</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>logDeliveryConfigurations.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>memberClusters</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The names of all the cache clusters that are part of this replication group.</td>
+</tr>
+<tr>
+<td><strong>memberClusters.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>memberClustersOutpostARNs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each node group (shard).</td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Represents a collection of cache nodes in a replication group. One node in the node group is the read/write primary node. All the other nodes are read-only Replica nodes.</td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Represents a single node within a node group (shard).</td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].cacheNodeID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].currentRole</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].preferredAvailabilityZone</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].preferredOutpostARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].readEndpoint</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Represents the information required for client programs to connect to a cache node.</td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].readEndpoint.address</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].nodeGroupMembers.[].readEndpoint.port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].primaryEndpoint</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Represents the information required for client programs to connect to a cache node.</td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].primaryEndpoint.address</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].primaryEndpoint.port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].readerEndpoint</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Represents the information required for client programs to connect to a cache node.</td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].readerEndpoint.address</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].readerEndpoint.port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].slots</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>nodeGroups.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues</strong><br/>Optional</td>
+<td><strong>object</strong><br/>A group of settings to be applied to the replication group, either immediately or during the next maintenance window.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.authTokenStatus</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.automaticFailoverStatus</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>The log delivery configurations being modified</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].destinationDetails.cloudWatchLogsDetails</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration details of the CloudWatch Logs destination.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].destinationDetails.cloudWatchLogsDetails.logGroup</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].destinationDetails.kinesisFirehoseDetails</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The configuration details of the Kinesis Data Firehose destination.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].destinationDetails.kinesisFirehoseDetails.deliveryStream</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].destinationType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].logFormat</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.logDeliveryConfigurations.[].logType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.primaryClusterID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.resharding</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The status of an online resharding operation.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.resharding.slotMigration</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Represents the progress of an online resharding operation.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.resharding.slotMigration.progressPercentage</strong><br/>Optional</td>
+<td><strong>number</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.userGroups</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The status of the user group update.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.userGroups.userGroupIDsToAdd</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.userGroups.userGroupIDsToAdd.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.userGroups.userGroupIDsToRemove.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>status</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The current state of this replication group - creating, available, modifying, deleting, create-failed, snapshotting.</td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../CacheSubnetGroup/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              CacheSubnetGroup
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../Snapshot/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Snapshot
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/awscloud" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      
+    
+  </body>
+</html>

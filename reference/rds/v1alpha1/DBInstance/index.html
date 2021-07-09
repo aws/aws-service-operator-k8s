@@ -1,0 +1,3331 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AWS Controllers for Kubernetes">
+      
+      
+      
+        <meta name="author" content="The ACK contributors">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+    
+    
+      
+        <title>DBInstance - ACK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffa724">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:300,400,400i,700%7COxygen+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Oxygen";--md-code-font-family:"Oxygen Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="orange" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dbinstance" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="ACK" class="md-header__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ACK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DBInstance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../user-docs/wip/" class="md-tabs__link">
+        User docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../dev-docs/overview/" class="md-tabs__link">
+        Contributor docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../overview/" class="md-tabs__link md-tabs__link--active">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../community/background/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="ACK" class="md-nav__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../../../assets/images/logo.png" alt="logo">
+
+    </a>
+    ACK
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      <label class="md-nav__link" for="__nav_1">
+        Home
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../services/" class="md-nav__link">
+        Services
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        User docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="User docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-docs/wip/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-docs/wip/" class="md-nav__link">
+        Permissions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../user-docs/wip/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Contributor docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Contributor docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Contributor docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/code-generation/" class="md-nav__link">
+        Code generation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/building-controller/" class="md-nav__link">
+        Building controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/testing/" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../dev-docs/release/" class="md-nav__link">
+        Release
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1" type="checkbox" id="__nav_4_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1">
+        Apigatewayv2
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apigatewayv2" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Apigatewayv2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1_1" type="checkbox" id="__nav_4_2_1_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/API/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/APIMapping/" class="md-nav__link">
+        APIMapping
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Authorizer/" class="md-nav__link">
+        Authorizer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Deployment/" class="md-nav__link">
+        Deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/DomainName/" class="md-nav__link">
+        DomainName
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Integration/" class="md-nav__link">
+        Integration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/IntegrationResponse/" class="md-nav__link">
+        IntegrationResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Route/" class="md-nav__link">
+        Route
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/RouteResponse/" class="md-nav__link">
+        RouteResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/Stage/" class="md-nav__link">
+        Stage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../apigatewayv2/v1alpha1/VPCLink/" class="md-nav__link">
+        VPCLink
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2">
+        Applicationautoscaling
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Applicationautoscaling" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Applicationautoscaling
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2_1" type="checkbox" id="__nav_4_2_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../applicationautoscaling/v1alpha1/ScalableTarget/" class="md-nav__link">
+        ScalableTarget
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../applicationautoscaling/v1alpha1/ScalingPolicy/" class="md-nav__link">
+        ScalingPolicy
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3" type="checkbox" id="__nav_4_2_3" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3">
+        Dynamodb
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dynamodb" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Dynamodb
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3_1" type="checkbox" id="__nav_4_2_3_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dynamodb/v1alpha1/Backup/" class="md-nav__link">
+        Backup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dynamodb/v1alpha1/GlobalTable/" class="md-nav__link">
+        GlobalTable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dynamodb/v1alpha1/Table/" class="md-nav__link">
+        Table
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4" type="checkbox" id="__nav_4_2_4" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4">
+        Ecr
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Ecr" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ecr
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4_1" type="checkbox" id="__nav_4_2_4_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ecr/v1alpha1/Repository/" class="md-nav__link">
+        Repository
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5" type="checkbox" id="__nav_4_2_5" >
+      
+      <label class="md-nav__link" for="__nav_4_2_5">
+        Elasticache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticache" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5_1" type="checkbox" id="__nav_4_2_5_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_5_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticache/v1alpha1/CacheParameterGroup/" class="md-nav__link">
+        CacheParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticache/v1alpha1/CacheSubnetGroup/" class="md-nav__link">
+        CacheSubnetGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticache/v1alpha1/ReplicationGroup/" class="md-nav__link">
+        ReplicationGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticache/v1alpha1/Snapshot/" class="md-nav__link">
+        Snapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticache/v1alpha1/User/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticache/v1alpha1/UserGroup/" class="md-nav__link">
+        UserGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6" type="checkbox" id="__nav_4_2_6" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6">
+        Elasticsearchservice
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticsearchservice" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticsearchservice
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6_1" type="checkbox" id="__nav_4_2_6_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elasticsearchservice/v1alpha1/ElasticsearchDomain/" class="md-nav__link">
+        ElasticsearchDomain
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7" type="checkbox" id="__nav_4_2_7" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7">
+        Kms
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Kms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7_1" type="checkbox" id="__nav_4_2_7_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/Alias/" class="md-nav__link">
+        Alias
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/CustomKeyStore/" class="md-nav__link">
+        CustomKeyStore
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/Grant/" class="md-nav__link">
+        Grant
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../kms/v1alpha1/Key/" class="md-nav__link">
+        Key
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8" type="checkbox" id="__nav_4_2_8" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8">
+        Mq
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Mq" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Mq
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8_1" type="checkbox" id="__nav_4_2_8_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mq/v1alpha1/Broker/" class="md-nav__link">
+        Broker
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9" type="checkbox" id="__nav_4_2_9" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2_9">
+        Rds
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Rds" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Rds
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9_1" type="checkbox" id="__nav_4_2_9_1" checked>
+      
+      <label class="md-nav__link" for="__nav_4_2_9_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DBCluster/" class="md-nav__link">
+        DBCluster
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DBClusterParameterGroup/" class="md-nav__link">
+        DBClusterParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          DBInstance
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        DBInstance
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec" class="md-nav__link">
+    Spec
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DBParameterGroup/" class="md-nav__link">
+        DBParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DBSecurityGroup/" class="md-nav__link">
+        DBSecurityGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DBSubnetGroup/" class="md-nav__link">
+        DBSubnetGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10" type="checkbox" id="__nav_4_2_10" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10">
+        S3
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="S3" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          S3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10_1" type="checkbox" id="__nav_4_2_10_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../s3/v1alpha1/Bucket/" class="md-nav__link">
+        Bucket
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11" type="checkbox" id="__nav_4_2_11" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11">
+        Sagemaker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sagemaker" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Sagemaker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11_1" type="checkbox" id="__nav_4_2_11_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_11_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/DataQualityJobDefinition/" class="md-nav__link">
+        DataQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/Endpoint/" class="md-nav__link">
+        Endpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/EndpointConfig/" class="md-nav__link">
+        EndpointConfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/HyperParameterTuningJob/" class="md-nav__link">
+        HyperParameterTuningJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ModelBiasJobDefinition/" class="md-nav__link">
+        ModelBiasJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ModelExplainabilityJobDefinition/" class="md-nav__link">
+        ModelExplainabilityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ModelQualityJobDefinition/" class="md-nav__link">
+        ModelQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/MonitoringSchedule/" class="md-nav__link">
+        MonitoringSchedule
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/ProcessingJob/" class="md-nav__link">
+        ProcessingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/TrainingJob/" class="md-nav__link">
+        TrainingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sagemaker/v1alpha1/TransformJob/" class="md-nav__link">
+        TransformJob
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12" type="checkbox" id="__nav_4_2_12" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12">
+        Sfn
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sfn" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Sfn
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12_1" type="checkbox" id="__nav_4_2_12_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_12_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sfn/v1alpha1/Activity/" class="md-nav__link">
+        Activity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sfn/v1alpha1/StateMachine/" class="md-nav__link">
+        StateMachine
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13" type="checkbox" id="__nav_4_2_13" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13">
+        Sns
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sns" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_13">
+          <span class="md-nav__icon md-icon"></span>
+          Sns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13_1" type="checkbox" id="__nav_4_2_13_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_13_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sns/v1alpha1/PlatformApplication/" class="md-nav__link">
+        PlatformApplication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sns/v1alpha1/PlatformEndpoint/" class="md-nav__link">
+        PlatformEndpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sns/v1alpha1/Topic/" class="md-nav__link">
+        Topic
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14" type="checkbox" id="__nav_4_2_14" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14">
+        Sqs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sqs" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_14">
+          <span class="md-nav__icon md-icon"></span>
+          Sqs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14_1" type="checkbox" id="__nav_4_2_14_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_14_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sqs/v1alpha1/Queue/" class="md-nav__link">
+        Queue
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Community
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../community/background/" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../community/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../community/discussions/" class="md-nav__link">
+        Discussions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/CONTRIBUTING.md" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/GOVERNANCE.md" class="md-nav__link">
+        Governance
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec" class="md-nav__link">
+    Spec
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/aws-controllers-k8s/edit/master/docs/reference/rds/v1alpha1/DBInstance.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="dbinstance">DBInstance<a class="headerlink" href="#dbinstance" title="Permanent link">&para;</a></h1>
+<p><code>rds.services.k8s.aws/v1alpha1</code></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GoDoc</td>
+<td><a href="https://pkg.go.dev/github.com/aws-controllers-k8s/rds-controller/apis/v1alpha1#DBInstance">rds-controller/apis/v1alpha1#DBInstance</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scope</td>
+<td>Namespaced</td>
+</tr>
+<tr>
+<td>Kind</td>
+<td><code>DBInstance</code></td>
+</tr>
+<tr>
+<td>ListKind</td>
+<td><code>DBInstanceList</code></td>
+</tr>
+<tr>
+<td>Plural</td>
+<td><code>dbinstances</code></td>
+</tr>
+<tr>
+<td>Singular</td>
+<td><code>dbinstance</code></td>
+</tr>
+</tbody>
+</table>
+<p>Contains the details of an Amazon RDS DB instance. 
+ This data type is used as a response element in the DescribeDBInstances action.</p>
+<h2 id="spec">Spec<a class="headerlink" href="#spec" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">allocatedStorage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">autoMinorVersionUpgrade</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">availabilityZone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">backupRetentionPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">characterSetName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">copyTagsToSnapshot</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">dbClusterIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbInstanceClass</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbInstanceIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbParameterGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbSecurityGroupNames</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbSubnetGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">deletionProtection</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">domain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">domainIAMRoleName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">enableCloudwatchLogsExports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">enableCustomerOwnedIP</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">enableIAMDatabaseAuthentication</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">enablePerformanceInsights</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">engine</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">engineVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">iops</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">kmsKeyID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">licenseModel</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">masterUserPassword</span><span class="p">:</span>
+  <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">masterUsername</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">maxAllocatedStorage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">monitoringInterval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">monitoringRoleARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">multiAZ</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">ncharCharacterSetName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">optionGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">performanceInsightsKMSKeyID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">performanceInsightsRetentionPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">preferredBackupWindow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">preferredMaintenanceWindow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">processorFeatures</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">promotionTier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">publiclyAccessible</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">storageEncrypted</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">storageType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">tdeCredentialARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">tdeCredentialPassword</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">timezone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">vpcSecurityGroupIDs</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>allocatedStorage</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The amount of storage (in gibibytes) to allocate for the DB instance. <br/> Type: Integer <br/> Amazon Aurora <br/> Not applicable. Aurora cluster volumes automatically grow as the amount of data in your database increases, though you are only charged for the space that you use in an Aurora cluster volume. <br/> MySQL <br/> Constraints to the amount of storage for each storage type are the following: <br/>    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 65536. <br/>    * Provisioned IOPS storage (io1): Must be an integer from 100 to 65536. <br/>    * Magnetic storage (standard): Must be an integer from 5 to 3072. <br/> MariaDB <br/> Constraints to the amount of storage for each storage type are the following: <br/>    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 65536. <br/>    * Provisioned IOPS storage (io1): Must be an integer from 100 to 65536. <br/>    * Magnetic storage (standard): Must be an integer from 5 to 3072. <br/> PostgreSQL <br/> Constraints to the amount of storage for each storage type are the following: <br/>    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 65536. <br/>    * Provisioned IOPS storage (io1): Must be an integer from 100 to 65536. <br/>    * Magnetic storage (standard): Must be an integer from 5 to 3072. <br/> Oracle <br/> Constraints to the amount of storage for each storage type are the following: <br/>    * General Purpose (SSD) storage (gp2): Must be an integer from 20 to 65536. <br/>    * Provisioned IOPS storage (io1): Must be an integer from 100 to 65536. <br/>    * Magnetic storage (standard): Must be an integer from 10 to 3072. <br/> SQL Server <br/> Constraints to the amount of storage for each storage type are the following: <br/>    * General Purpose (SSD) storage (gp2): Enterprise and Standard editions:    Must be an integer from 200 to 16384. Web and Express editions: Must be    an integer from 20 to 16384. <br/>    * Provisioned IOPS storage (io1): Enterprise and Standard editions: Must    be an integer from 200 to 16384. Web and Express editions: Must be an    integer from 100 to 16384. <br/>    * Magnetic storage (standard): Enterprise and Standard editions: Must    be an integer from 200 to 1024. Web and Express editions: Must be an integer    from 20 to 1024.</td>
+</tr>
+<tr>
+<td><strong>autoMinorVersionUpgrade</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether minor engine upgrades are applied automatically to the DB instance during the maintenance window. By default, minor engine upgrades are applied automatically.</td>
+</tr>
+<tr>
+<td><strong>availabilityZone</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The Availability Zone (AZ) where the database will be created. For information on AWS Regions and Availability Zones, see Regions and Availability Zones (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html). <br/> Default: A random, system-chosen Availability Zone in the endpoint's AWS Region. <br/> Example: us-east-1d <br/> Constraint: The AvailabilityZone parameter can't be specified if the DB instance is a Multi-AZ deployment. The specified Availability Zone must be in the same AWS Region as the current endpoint. <br/> If you're creating a DB instance in an RDS on VMware environment, specify the identifier of the custom Availability Zone to create the DB instance in. <br/> For more information about RDS on VMware, see the RDS on VMware User Guide. (https://docs.aws.amazon.com/AmazonRDS/latest/RDSonVMwareUserGuide/rds-on-vmware.html)</td>
+</tr>
+<tr>
+<td><strong>backupRetentionPeriod</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups. <br/> Amazon Aurora <br/> Not applicable. The retention period for automated backups is managed by the DB cluster. <br/> Default: 1 <br/> Constraints: <br/>    * Must be a value from 0 to 35 <br/>    * Can't be set to 0 if the DB instance is a source to read replicas</td>
+</tr>
+<tr>
+<td><strong>characterSetName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>For supported engines, indicates that the DB instance should be associated with the specified CharacterSet. <br/> Amazon Aurora <br/> Not applicable. The character set is managed by the DB cluster. For more information, see CreateDBCluster.</td>
+</tr>
+<tr>
+<td><strong>copyTagsToSnapshot</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether to copy tags from the DB instance to snapshots of the DB instance. By default, tags are not copied. <br/> Amazon Aurora <br/> Not applicable. Copying tags to snapshots is managed by the DB cluster. Setting this value for an Aurora DB instance has no effect on the DB cluster setting.</td>
+</tr>
+<tr>
+<td><strong>dbClusterIdentifier</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The identifier of the DB cluster that the instance will belong to.</td>
+</tr>
+<tr>
+<td><strong>dbInstanceClass</strong><br/>Required</td>
+<td><strong>string</strong><br/>The compute and memory capacity of the DB instance, for example, db.m4.large. Not all DB instance classes are available in all AWS Regions, or for all database engines. For the full list of DB instance classes, and availability for your engine, see DB Instance Class (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>dbInstanceIdentifier</strong><br/>Required</td>
+<td><strong>string</strong><br/>The DB instance identifier. This parameter is stored as a lowercase string. <br/> Constraints: <br/>    * Must contain from 1 to 63 letters, numbers, or hyphens. <br/>    * First character must be a letter. <br/>    * Can't end with a hyphen or contain two consecutive hyphens. <br/> Example: mydbinstance</td>
+</tr>
+<tr>
+<td><strong>dbName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The meaning of this parameter differs according to the database engine you use. <br/> MySQL <br/> The name of the database to create when the DB instance is created. If this parameter isn't specified, no database is created in the DB instance. <br/> Constraints: <br/>    * Must contain 1 to 64 letters or numbers. <br/>    * Must begin with a letter. Subsequent characters can be letters, underscores,    or digits (0-9). <br/>    * Can't be a word reserved by the specified database engine <br/> MariaDB <br/> The name of the database to create when the DB instance is created. If this parameter isn't specified, no database is created in the DB instance. <br/> Constraints: <br/>    * Must contain 1 to 64 letters or numbers. <br/>    * Must begin with a letter. Subsequent characters can be letters, underscores,    or digits (0-9). <br/>    * Can't be a word reserved by the specified database engine <br/> PostgreSQL <br/> The name of the database to create when the DB instance is created. If this parameter isn't specified, a database named postgres is created in the DB instance. <br/> Constraints: <br/>    * Must contain 1 to 63 letters, numbers, or underscores. <br/>    * Must begin with a letter. Subsequent characters can be letters, underscores,    or digits (0-9). <br/>    * Can't be a word reserved by the specified database engine <br/> Oracle <br/> The Oracle System ID (SID) of the created DB instance. If you specify null, the default value ORCL is used. You can't specify the string NULL, or any other reserved word, for DBName. <br/> Default: ORCL <br/> Constraints: <br/>    * Can't be longer than 8 characters <br/> SQL Server <br/> Not applicable. Must be null. <br/> Amazon Aurora MySQL <br/> The name of the database to create when the primary DB instance of the Aurora MySQL DB cluster is created. If this parameter isn't specified for an Aurora MySQL DB cluster, no database is created in the DB cluster. <br/> Constraints: <br/>    * It must contain 1 to 64 alphanumeric characters. <br/>    * It can't be a word reserved by the database engine. <br/> Amazon Aurora PostgreSQL <br/> The name of the database to create when the primary DB instance of the Aurora PostgreSQL DB cluster is created. If this parameter isn't specified for an Aurora PostgreSQL DB cluster, a database named postgres is created in the DB cluster. <br/> Constraints: <br/>    * It must contain 1 to 63 alphanumeric characters. <br/>    * It must begin with a letter or an underscore. Subsequent characters    can be letters, underscores, or digits (0 to 9). <br/>    * It can't be a word reserved by the database engine.</td>
+</tr>
+<tr>
+<td><strong>dbParameterGroupName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The name of the DB parameter group to associate with this DB instance. If you do not specify a value, then the default DB parameter group for the specified DB engine and version is used. <br/> Constraints: <br/>    * Must be 1 to 255 letters, numbers, or hyphens. <br/>    * First character must be a letter <br/>    * Can't end with a hyphen or contain two consecutive hyphens</td>
+</tr>
+<tr>
+<td><strong>dbSecurityGroupNames</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of DB security groups to associate with this DB instance. <br/> Default: The default DB security group for the database engine.</td>
+</tr>
+<tr>
+<td><strong>dbSecurityGroupNames.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>deletionProtection</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled. For more information, see Deleting a DB Instance (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html). <br/> Amazon Aurora <br/> Not applicable. You can enable or disable deletion protection for the DB cluster. For more information, see CreateDBCluster. DB instances in a DB cluster can be deleted even when deletion protection is enabled for the DB cluster.</td>
+</tr>
+<tr>
+<td><strong>domain</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The Active Directory directory ID to create the DB instance in. Currently, only MySQL, Microsoft SQL Server, Oracle, and PostgreSQL DB instances can be created in an Active Directory Domain. <br/> For more information, see Kerberos Authentication (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/kerberos-authentication.html) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>domainIAMRoleName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Specify the name of the IAM role to be used when making API calls to the Directory Service.</td>
+</tr>
+<tr>
+<td><strong>enableCloudwatchLogsExports</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see Publishing Database Logs to Amazon CloudWatch Logs (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch) in the Amazon Relational Database Service User Guide. <br/> Amazon Aurora <br/> Not applicable. CloudWatch Logs exports are managed by the DB cluster. <br/> MariaDB <br/> Possible values are audit, error, general, and slowquery. <br/> Microsoft SQL Server <br/> Possible values are agent and error. <br/> MySQL <br/> Possible values are audit, error, general, and slowquery. <br/> Oracle <br/> Possible values are alert, audit, listener, trace, and oemagent. <br/> PostgreSQL <br/> Possible values are postgresql and upgrade.</td>
+</tr>
+<tr>
+<td><strong>enableCloudwatchLogsExports.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>enableIAMDatabaseAuthentication</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled. <br/> This setting doesn't apply to Amazon Aurora. Mapping AWS IAM accounts to database accounts is managed by the DB cluster. <br/> For more information, see IAM Database Authentication for MySQL and PostgreSQL (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>enablePerformanceInsights</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether to enable Performance Insights for the DB instance. <br/> For more information, see Using Amazon Performance Insights (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html) in the Amazon Relational Database Service User Guide.</td>
+</tr>
+<tr>
+<td><strong>engine</strong><br/>Required</td>
+<td><strong>string</strong><br/>The name of the database engine to be used for this instance. <br/> Not every database engine is available for every AWS Region. <br/> Valid Values: <br/>    * aurora (for MySQL 5.6-compatible Aurora) <br/>    * aurora-mysql (for MySQL 5.7-compatible Aurora) <br/>    * aurora-postgresql <br/>    * mariadb <br/>    * mysql <br/>    * oracle-ee <br/>    * oracle-se2 <br/>    * oracle-se1 <br/>    * oracle-se <br/>    * postgres <br/>    * sqlserver-ee <br/>    * sqlserver-se <br/>    * sqlserver-ex <br/>    * sqlserver-web</td>
+</tr>
+<tr>
+<td><strong>engineVersion</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The version number of the database engine to use. <br/> For a list of valid engine versions, use the DescribeDBEngineVersions action. <br/> The following are the database engines and links to information about the major and minor versions that are available with Amazon RDS. Not every database engine is available for every AWS Region. <br/> Amazon Aurora <br/> Not applicable. The version number of the database engine to be used by the DB instance is managed by the DB cluster. <br/> MariaDB <br/> See MariaDB on Amazon RDS Versions (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MariaDB.html#MariaDB.Concepts.VersionMgmt) in the Amazon RDS User Guide. <br/> Microsoft SQL Server <br/> See Microsoft SQL Server Versions on Amazon RDS (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.VersionSupport) in the Amazon RDS User Guide. <br/> MySQL <br/> See MySQL on Amazon RDS Versions (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt) in the Amazon RDS User Guide. <br/> Oracle <br/> See Oracle Database Engine Release Notes (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.Oracle.PatchComposition.html) in the Amazon RDS User Guide. <br/> PostgreSQL <br/> See Amazon RDS for PostgreSQL versions and extensions (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>iops</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB instance. For information about valid Iops values, see Amazon RDS Provisioned IOPS Storage to Improve Performance (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS) in the Amazon RDS User Guide. <br/> Constraints: For MariaDB, MySQL, Oracle, and PostgreSQL DB instances, must be a multiple between .5 and 50 of the storage amount for the DB instance. For SQL Server DB instances, must be a multiple between 1 and 50 of the storage amount for the DB instance.</td>
+</tr>
+<tr>
+<td><strong>kmsKeyID</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The AWS KMS key identifier for an encrypted DB instance. <br/> The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK). To use a CMK in a different AWS account, specify the key ARN or alias ARN. <br/> Amazon Aurora <br/> Not applicable. The AWS KMS key identifier is managed by the DB cluster. For more information, see CreateDBCluster. <br/> If StorageEncrypted is enabled, and you do not specify a value for the KmsKeyId parameter, then Amazon RDS uses your default CMK. There is a default CMK for your AWS account. Your AWS account has a different default CMK for each AWS Region.</td>
+</tr>
+<tr>
+<td><strong>licenseModel</strong><br/>Optional</td>
+<td><strong>string</strong><br/>License model information for this DB instance. <br/> Valid values: license-included</td>
+</tr>
+<tr>
+<td><strong>masterUserPassword</strong><br/>Optional</td>
+<td><strong>object</strong><br/>The password for the master user. The password can include any printable ASCII character except "/", """, or "@". <br/> Amazon Aurora <br/> Not applicable. The password for the master user is managed by the DB cluster. <br/> MariaDB <br/> Constraints: Must contain from 8 to 41 characters. <br/> Microsoft SQL Server <br/> Constraints: Must contain from 8 to 128 characters. <br/> MySQL <br/> Constraints: Must contain from 8 to 41 characters. <br/> Oracle <br/> Constraints: Must contain from 8 to 30 characters. <br/> PostgreSQL <br/> Constraints: Must contain from 8 to 128 characters.</td>
+</tr>
+<tr>
+<td><strong>masterUserPassword.key</strong><br/>Required</td>
+<td><strong>string</strong><br/>Key is the key within the secret</td>
+</tr>
+<tr>
+<td><strong>masterUserPassword.name</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Name is unique within a namespace to reference a secret resource.</td>
+</tr>
+<tr>
+<td><strong>masterUserPassword.namespace</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Namespace defines the space within which the secret name must be unique.</td>
+</tr>
+<tr>
+<td><strong>masterUsername</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The name for the master user. <br/> Amazon Aurora <br/> Not applicable. The name for the master user is managed by the DB cluster. <br/> MariaDB <br/> Constraints: <br/>    * Required for MariaDB. <br/>    * Must be 1 to 16 letters or numbers. <br/>    * Can't be a reserved word for the chosen database engine. <br/> Microsoft SQL Server <br/> Constraints: <br/>    * Required for SQL Server. <br/>    * Must be 1 to 128 letters or numbers. <br/>    * The first character must be a letter. <br/>    * Can't be a reserved word for the chosen database engine. <br/> MySQL <br/> Constraints: <br/>    * Required for MySQL. <br/>    * Must be 1 to 16 letters or numbers. <br/>    * First character must be a letter. <br/>    * Can't be a reserved word for the chosen database engine. <br/> Oracle <br/> Constraints: <br/>    * Required for Oracle. <br/>    * Must be 1 to 30 letters or numbers. <br/>    * First character must be a letter. <br/>    * Can't be a reserved word for the chosen database engine. <br/> PostgreSQL <br/> Constraints: <br/>    * Required for PostgreSQL. <br/>    * Must be 1 to 63 letters or numbers. <br/>    * First character must be a letter. <br/>    * Can't be a reserved word for the chosen database engine.</td>
+</tr>
+<tr>
+<td><strong>maxAllocatedStorage</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The upper limit to which Amazon RDS can automatically scale the storage of the DB instance. <br/> For more information about this setting, including limitations that apply to it, see Managing capacity automatically with Amazon RDS storage autoscaling (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html#USER_PIOPS.Autoscaling) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>monitoringInterval</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance. To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. <br/> If MonitoringRoleArn is specified, then you must also set MonitoringInterval to a value other than 0. <br/> Valid Values: 0, 1, 5, 10, 15, 30, 60</td>
+</tr>
+<tr>
+<td><strong>monitoringRoleARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The ARN for the IAM role that permits RDS to send enhanced monitoring metrics to Amazon CloudWatch Logs. For example, arn:aws:iam:123456789012:role/emaccess. For information on creating a monitoring role, go to Setting Up and Enabling Enhanced Monitoring (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling) in the Amazon RDS User Guide. <br/> If MonitoringInterval is set to a value other than 0, then you must supply a MonitoringRoleArn value.</td>
+</tr>
+<tr>
+<td><strong>multiAZ</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether the DB instance is a Multi-AZ deployment. You can't set the AvailabilityZone parameter if the DB instance is a Multi-AZ deployment.</td>
+</tr>
+<tr>
+<td><strong>ncharCharacterSetName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The name of the NCHAR character set for the Oracle DB instance.</td>
+</tr>
+<tr>
+<td><strong>optionGroupName</strong><br/>Optional</td>
+<td><strong>string</strong><br/>A value that indicates that the DB instance should be associated with the specified option group. <br/> Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option group. Also, that option group can't be removed from a DB instance once it is associated with a DB instance</td>
+</tr>
+<tr>
+<td><strong>performanceInsightsKMSKeyID</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The AWS KMS key identifier for encryption of Performance Insights data. <br/> The AWS KMS key identifier is the key ARN, key ID, alias ARN, or alias name for the AWS KMS customer master key (CMK). <br/> If you do not specify a value for PerformanceInsightsKMSKeyId, then Amazon RDS uses your default CMK. There is a default CMK for your AWS account. Your AWS account has a different default CMK for each AWS Region.</td>
+</tr>
+<tr>
+<td><strong>performanceInsightsRetentionPeriod</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).</td>
+</tr>
+<tr>
+<td><strong>port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>The port number on which the database accepts connections. <br/> MySQL <br/> Default: 3306 <br/> Valid values: 1150-65535 <br/> Type: Integer <br/> MariaDB <br/> Default: 3306 <br/> Valid values: 1150-65535 <br/> Type: Integer <br/> PostgreSQL <br/> Default: 5432 <br/> Valid values: 1150-65535 <br/> Type: Integer <br/> Oracle <br/> Default: 1521 <br/> Valid values: 1150-65535 <br/> SQL Server <br/> Default: 1433 <br/> Valid values: 1150-65535 except 1234, 1434, 3260, 3343, 3389, 47001, and 49152-49156. <br/> Amazon Aurora <br/> Default: 3306 <br/> Valid values: 1150-65535 <br/> Type: Integer</td>
+</tr>
+<tr>
+<td><strong>preferredBackupWindow</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The daily time range during which automated backups are created if automated backups are enabled, using the BackupRetentionPeriod parameter. For more information, see The Backup Window (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow) in the Amazon RDS User Guide. <br/> Amazon Aurora <br/> Not applicable. The daily time range for creating automated backups is managed by the DB cluster. <br/> The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the time blocks available, see Adjusting the Preferred DB Instance Maintenance Window (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow) in the Amazon RDS User Guide. <br/> Constraints: <br/>    * Must be in the format hh24:mi-hh24:mi. <br/>    * Must be in Universal Coordinated Time (UTC). <br/>    * Must not conflict with the preferred maintenance window. <br/>    * Must be at least 30 minutes.</td>
+</tr>
+<tr>
+<td><strong>preferredMaintenanceWindow</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The time range each week during which system maintenance can occur, in Universal Coordinated Time (UTC). For more information, see Amazon RDS Maintenance Window (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#Concepts.DBMaintenance). <br/> Format: ddd:hh24:mi-ddd:hh24:mi <br/> The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring on a random day of the week. <br/> Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun. <br/> Constraints: Minimum 30-minute window.</td>
+</tr>
+<tr>
+<td><strong>processorFeatures</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.</td>
+</tr>
+<tr>
+<td><strong>processorFeatures.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Contains the processor features of a DB instance class.</td>
+</tr>
+<tr>
+<td>To specify the number of CPU cores, use the coreCount feature name for the Name parameter. To specify the number of threads per core, use the threadsPerCore feature name for the Name parameter.</td>
+<td></td>
+</tr>
+<tr>
+<td>You can set the processor features of the DB instance class for a DB instance when you call one of the following actions:</td>
+<td></td>
+</tr>
+<tr>
+<td>* CreateDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* ModifyDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceFromDBSnapshot</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceFromS3</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceToPointInTime</td>
+<td></td>
+</tr>
+<tr>
+<td>You can view the valid processor values for a particular instance class by calling the DescribeOrderableDBInstanceOptions action and specifying the instance class for the DBInstanceClass parameter.</td>
+<td></td>
+</tr>
+<tr>
+<td>In addition, you can use the following actions for DB instance class processor information:</td>
+<td></td>
+</tr>
+<tr>
+<td>* DescribeDBInstances</td>
+<td></td>
+</tr>
+<tr>
+<td>* DescribeDBSnapshots</td>
+<td></td>
+</tr>
+<tr>
+<td>* DescribeValidDBInstanceModifications</td>
+<td></td>
+</tr>
+<tr>
+<td>If you call DescribeDBInstances, ProcessorFeature returns non-null values only if the following conditions are met:</td>
+<td></td>
+</tr>
+<tr>
+<td>* You are accessing an Oracle DB instance.</td>
+<td></td>
+</tr>
+<tr>
+<td>* Your Oracle DB instance class supports configuring the number of CPU    cores and threads per core.</td>
+<td></td>
+</tr>
+<tr>
+<td>* The current number CPU cores and threads is set to a non-default value.</td>
+<td></td>
+</tr>
+<tr>
+<td>For more information, see Configuring the Processor of the DB Instance Class (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor) in the Amazon RDS User Guide.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>processorFeatures.[].value</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>promotionTier</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>A value that specifies the order in which an Aurora Replica is promoted to the primary instance after a failure of the existing primary instance. For more information, see Fault Tolerance for an Aurora DB Cluster (https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance) in the Amazon Aurora User Guide. <br/> Default: 1 <br/> Valid Values: 0 - 15</td>
+</tr>
+<tr>
+<td><strong>publiclyAccessible</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether the DB instance is publicly accessible. <br/> When the DB instance is publicly accessible, its DNS endpoint resolves to the private IP address from within the DB instance's VPC, and to the public IP address from outside of the DB instance's VPC. Access to the DB instance is ultimately controlled by the security group it uses, and that public access is not permitted if the security group assigned to the DB instance doesn't permit it. <br/> When the DB instance isn't publicly accessible, it is an internal DB instance with a DNS name that resolves to a private IP address. <br/> Default: The default behavior varies depending on whether DBSubnetGroupName is specified. <br/> If DBSubnetGroupName isn't specified, and PubliclyAccessible isn't specified, the following applies: <br/>    * If the default VPC in the target region doesn’t have an Internet gateway    attached to it, the DB instance is private. <br/>    * If the default VPC in the target region has an Internet gateway attached    to it, the DB instance is public. <br/> If DBSubnetGroupName is specified, and PubliclyAccessible isn't specified, the following applies: <br/>    * If the subnets are part of a VPC that doesn’t have an Internet gateway    attached to it, the DB instance is private. <br/>    * If the subnets are part of a VPC that has an Internet gateway attached    to it, the DB instance is public.</td>
+</tr>
+<tr>
+<td><strong>storageEncrypted</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>A value that indicates whether the DB instance is encrypted. By default, it isn't encrypted. <br/> Amazon Aurora <br/> Not applicable. The encryption for DB instances is managed by the DB cluster.</td>
+</tr>
+<tr>
+<td><strong>storageType</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Specifies the storage type to be associated with the DB instance. <br/> Valid values: standard</td>
+</tr>
+<tr>
+<td><strong>tags</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Tags to assign to the DB instance.</td>
+</tr>
+<tr>
+<td><strong>tags.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Metadata assigned to an Amazon RDS resource consisting of a key-value pair.</td>
+</tr>
+<tr>
+<td><strong>tags.[].value</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>tdeCredentialARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The ARN from the key store with which to associate the instance for TDE encryption.</td>
+</tr>
+<tr>
+<td><strong>tdeCredentialPassword</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The password for the given ARN from the key store in order to access the device.</td>
+</tr>
+<tr>
+<td><strong>timezone</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The time zone of the DB instance. The time zone parameter is currently supported only by Microsoft SQL Server (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone).</td>
+</tr>
+<tr>
+<td><strong>vpcSecurityGroupIDs</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of Amazon EC2 VPC security groups to associate with this DB instance. <br/> Amazon Aurora <br/> Not applicable. The associated list of EC2 VPC security groups is managed by the DB cluster. <br/> Default: The default EC2 VPC security group for the DB subnet group's VPC.</td>
+</tr>
+<tr>
+<td><strong>vpcSecurityGroupIDs.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+</tbody>
+</table>
+<h2 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">ackResourceMetadata</span><span class="p">:</span>
+  <span class="nt">arn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">ownerAccountID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">associatedRoles</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">featureName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">roleARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">caCertificateIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">conditions</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">lastTransitionTime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">message</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">reason</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">customerOwnedIPEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">dbInstanceAutomatedBackupsReplications</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">dbInstanceAutomatedBackupsARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">dbInstancePort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="nt">dbInstanceStatus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">dbParameterGroups</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">dbParameterGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">parameterApplyStatus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">dbSubnetGroup</span><span class="p">:</span>
+  <span class="nt">dbSubnetGroupARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">dbSubnetGroupDescription</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">dbSubnetGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">subnetGroupStatus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">subnets</span><span class="p">:</span>
+    <span class="nt">subnetAvailabilityZone</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+    <span class=" -Error">  </span><span class="nt">subnetIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">subnetOutpost</span><span class="p">:</span>
+            <span class="nt">arn</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+      <span class="nt">subnetStatus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+  <span class="nt">vpcID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">dbiResourceID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">domainMemberships</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">domain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">fQDN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">iamRoleName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">enabledCloudwatchLogsExports</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">endpoint</span><span class="p">:</span>
+  <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">hostedZoneID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+
+<span class="nt">enhancedMonitoringResourceARN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">iamDatabaseAuthenticationEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">instanceCreateTime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">latestRestorableTime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">listenerEndpoint</span><span class="p">:</span>
+  <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">hostedZoneID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+
+<span class="nt">optionGroupMemberships</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">optionGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">pendingModifiedValues</span><span class="p">:</span>
+  <span class="nt">allocatedStorage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+  <span class="nt">backupRetentionPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+  <span class="nt">caCertificateIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">dbInstanceClass</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">dbInstanceIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">dbSubnetGroupName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">engineVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">iamDatabaseAuthenticationEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+  <span class="nt">iops</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+  <span class="nt">licenseModel</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">masterUserPassword</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">multiAZ</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+  <span class="nt">pendingCloudwatchLogsExports</span><span class="p">:</span>
+      <span class="nt">logTypesToDisable</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">logTypesToEnable</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+  <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">integer</span>
+  <span class="nt">processorFeatures</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+  <span class="nt">storageType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">performanceInsightsEnabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="nt">readReplicaDBClusterIdentifiers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">readReplicaDBInstanceIdentifiers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">readReplicaSourceDBInstanceIdentifier</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">replicaMode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">secondaryAvailabilityZone</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="nt">statusInfos</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">message</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">normal</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+  <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">statusType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">tagList</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+
+<span class="nt">vpcSecurityGroups</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">status</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+  <span class="nt">vpcSecurityGroupID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ackResourceMetadata</strong><br/>Required</td>
+<td><strong>object</strong><br/>All CRs managed by ACK have a common <code>Status.ACKResourceMetadata</code> member that is used to contain resource sync state, account ownership, constructed ARN for the resource</td>
+</tr>
+<tr>
+<td><strong>ackResourceMetadata.arn</strong><br/>Optional</td>
+<td><strong>string</strong><br/>ARN is the Amazon Resource Name for the resource. This is a globally-unique identifier and is set only by the ACK service controller once the controller has orchestrated the creation of the resource OR when it has verified that an "adopted" resource (a resource where the ARN annotation was set by the Kubernetes user on the CR) exists and matches the supplied CR's Spec field values. TODO(vijat@): Find a better strategy for resources that do not have ARN in CreateOutputResponse https://github.com/aws/aws-controllers-k8s/issues/270</td>
+</tr>
+<tr>
+<td><strong>ackResourceMetadata.ownerAccountID</strong><br/>Required</td>
+<td><strong>string</strong><br/>OwnerAccountID is the AWS Account ID of the account that owns the backend AWS service API resource.</td>
+</tr>
+<tr>
+<td><strong>associatedRoles</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The AWS Identity and Access Management (IAM) roles associated with the DB instance.</td>
+</tr>
+<tr>
+<td><strong>associatedRoles.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Describes an AWS Identity and Access Management (IAM) role that is associated with a DB instance.</td>
+</tr>
+<tr>
+<td><strong>associatedRoles.[].roleARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>associatedRoles.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>caCertificateIdentifier</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The identifier of the CA certificate for this DB instance.</td>
+</tr>
+<tr>
+<td><strong>conditions</strong><br/>Required</td>
+<td><strong>array</strong><br/>All CRS managed by ACK have a common <code>Status.Conditions</code> member that contains a collection of <code>ackv1alpha1.Condition</code> objects that describe the various terminal states of the CR and its backend AWS service API resource</td>
+</tr>
+<tr>
+<td><strong>conditions.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Condition is the common struct used by all CRDs managed by ACK service controllers to indicate terminal states  of the CR and its backend AWS service API resource</td>
+</tr>
+<tr>
+<td><strong>conditions.[].message</strong><br/>Optional</td>
+<td><strong>string</strong><br/>A human readable message indicating details about the transition.</td>
+</tr>
+<tr>
+<td><strong>conditions.[].reason</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The reason for the condition's last transition.</td>
+</tr>
+<tr>
+<td><strong>conditions.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Status of the condition, one of True, False, Unknown.</td>
+</tr>
+<tr>
+<td><strong>conditions.[].type</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Type is the type of the Condition</td>
+</tr>
+<tr>
+<td><strong>customerOwnedIPEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>Specifies whether a customer-owned IP address (CoIP) is enabled for an RDS on Outposts DB instance. <br/> A CoIP provides local or external connectivity to resources in your Outpost subnets through your on-premises network. For some use cases, a CoIP can provide lower latency for connections to the DB instance from outside of its virtual private cloud (VPC) on your local network. <br/> For more information about RDS on Outposts, see Working with Amazon RDS on AWS Outposts (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html) in the Amazon RDS User Guide. <br/> For more information about CoIPs, see Customer-owned IP addresses (https://docs.aws.amazon.com/outposts/latest/userguide/outposts-networking-components.html#ip-addressing) in the AWS Outposts User Guide.</td>
+</tr>
+<tr>
+<td><strong>dbInstanceAutomatedBackupsReplications</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The list of replicated automated backups associated with the DB instance.</td>
+</tr>
+<tr>
+<td><strong>dbInstanceAutomatedBackupsReplications.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Automated backups of a DB instance replicated to another AWS Region. They consist of system backups, transaction logs, and database instance properties.</td>
+</tr>
+<tr>
+<td><strong>dbInstancePort</strong><br/>Optional</td>
+<td><strong>integer</strong><br/>Specifies the port that the DB instance listens on. If the DB instance is part of a DB cluster, this can be a different port than the DB cluster port.</td>
+</tr>
+<tr>
+<td><strong>dbInstanceStatus</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Specifies the current state of this database. <br/> For information about DB instance statuses, see DB Instance Status (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Status.html) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>dbParameterGroups</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Provides the list of DB parameter groups applied to this DB instance.</td>
+</tr>
+<tr>
+<td><strong>dbParameterGroups.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>The status of the DB parameter group.</td>
+</tr>
+<tr>
+<td>This data type is used as a response element in the following actions:</td>
+<td></td>
+</tr>
+<tr>
+<td>* CreateDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* CreateDBInstanceReadReplica</td>
+<td></td>
+</tr>
+<tr>
+<td>* DeleteDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* ModifyDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* RebootDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceFromDBSnapshot</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>dbParameterGroups.[].parameterApplyStatus</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Specifies information on the subnet group associated with the DB instance, including the name, description, and subnets in the subnet group.</td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.dbSubnetGroupARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.dbSubnetGroupDescription</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.dbSubnetGroupName</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnetGroupStatus</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>This data type is used as a response element for the DescribeDBSubnetGroups operation.</td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets.[].subnetAvailabilityZone.name</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets.[].subnetIdentifier</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets.[].subnetOutpost</strong><br/>Optional</td>
+<td><strong>object</strong><br/>A data type that represents an Outpost. <br/> For more information about RDS on Outposts, see Amazon RDS on AWS Outposts (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-on-outposts.html) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets.[].subnetOutpost.arn</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.subnets.[].subnetStatus</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbSubnetGroup.vpcID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>dbiResourceID</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log entries whenever the AWS KMS customer master key (CMK) for the DB instance is accessed.</td>
+</tr>
+<tr>
+<td><strong>domainMemberships</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The Active Directory Domain membership records associated with the DB instance.</td>
+</tr>
+<tr>
+<td><strong>domainMemberships.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>An Active Directory Domain membership record associated with the DB instance or cluster.</td>
+</tr>
+<tr>
+<td><strong>domainMemberships.[].fQDN</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>domainMemberships.[].iamRoleName</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>domainMemberships.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>enabledCloudwatchLogsExports</strong><br/>Optional</td>
+<td><strong>array</strong><br/>A list of log types that this DB instance is configured to export to CloudWatch Logs. <br/> Log types vary by DB engine. For information about the log types for each DB engine, see Amazon RDS Database Log Files (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html) in the Amazon RDS User Guide.</td>
+</tr>
+<tr>
+<td><strong>enabledCloudwatchLogsExports.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>endpoint.address</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>endpoint.hostedZoneID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>endpoint.port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>enhancedMonitoringResourceARN</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log stream that receives the Enhanced Monitoring metrics data for the DB instance.</td>
+</tr>
+<tr>
+<td><strong>iamDatabaseAuthenticationEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false. <br/> IAM database authentication can be enabled for the following database engines <br/>    * For MySQL 5.6, minor version 5.6.34 or higher <br/>    * For MySQL 5.7, minor version 5.7.16 or higher <br/>    * Aurora 5.6 or higher. To enable IAM database authentication for Aurora,    see DBCluster Type.</td>
+</tr>
+<tr>
+<td><strong>instanceCreateTime</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Provides the date and time the DB instance was created.</td>
+</tr>
+<tr>
+<td><strong>latestRestorableTime</strong><br/>Optional</td>
+<td><strong>string</strong><br/>Specifies the latest time to which a database can be restored with point-in-time restore.</td>
+</tr>
+<tr>
+<td><strong>listenerEndpoint</strong><br/>Optional</td>
+<td><strong>object</strong><br/>Specifies the listener connection endpoint for SQL Server Always On.</td>
+</tr>
+<tr>
+<td><strong>listenerEndpoint.address</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>listenerEndpoint.hostedZoneID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>listenerEndpoint.port</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>optionGroupMemberships</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Provides the list of option group memberships for this DB instance.</td>
+</tr>
+<tr>
+<td><strong>optionGroupMemberships.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Provides information on the option groups the DB instance is a member of.</td>
+</tr>
+<tr>
+<td><strong>optionGroupMemberships.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues</strong><br/>Optional</td>
+<td><strong>object</strong><br/>A value that specifies that changes to the DB instance are pending. This element is only included when changes are pending. Specific changes are identified by subelements.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.allocatedStorage</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.backupRetentionPeriod</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.caCertificateIdentifier</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.dbInstanceClass</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.dbInstanceIdentifier</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.dbSubnetGroupName</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.engineVersion</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.iamDatabaseAuthenticationEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.iops</strong><br/>Optional</td>
+<td><strong>integer</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.licenseModel</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.masterUserPassword</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.multiAZ</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.pendingCloudwatchLogsExports</strong><br/>Optional</td>
+<td><strong>object</strong><br/>A list of the log types whose configuration is still pending. In other words, these log types are in the process of being activated or deactivated.</td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.pendingCloudwatchLogsExports.logTypesToDisable</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.pendingCloudwatchLogsExports.logTypesToDisable.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.pendingCloudwatchLogsExports.logTypesToEnable.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.processorFeatures</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.processorFeatures.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Contains the processor features of a DB instance class.</td>
+</tr>
+<tr>
+<td>To specify the number of CPU cores, use the coreCount feature name for the Name parameter. To specify the number of threads per core, use the threadsPerCore feature name for the Name parameter.</td>
+<td></td>
+</tr>
+<tr>
+<td>You can set the processor features of the DB instance class for a DB instance when you call one of the following actions:</td>
+<td></td>
+</tr>
+<tr>
+<td>* CreateDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* ModifyDBInstance</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceFromDBSnapshot</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceFromS3</td>
+<td></td>
+</tr>
+<tr>
+<td>* RestoreDBInstanceToPointInTime</td>
+<td></td>
+</tr>
+<tr>
+<td>You can view the valid processor values for a particular instance class by calling the DescribeOrderableDBInstanceOptions action and specifying the instance class for the DBInstanceClass parameter.</td>
+<td></td>
+</tr>
+<tr>
+<td>In addition, you can use the following actions for DB instance class processor information:</td>
+<td></td>
+</tr>
+<tr>
+<td>* DescribeDBInstances</td>
+<td></td>
+</tr>
+<tr>
+<td>* DescribeDBSnapshots</td>
+<td></td>
+</tr>
+<tr>
+<td>* DescribeValidDBInstanceModifications</td>
+<td></td>
+</tr>
+<tr>
+<td>If you call DescribeDBInstances, ProcessorFeature returns non-null values only if the following conditions are met:</td>
+<td></td>
+</tr>
+<tr>
+<td>* You are accessing an Oracle DB instance.</td>
+<td></td>
+</tr>
+<tr>
+<td>* Your Oracle DB instance class supports configuring the number of CPU    cores and threads per core.</td>
+<td></td>
+</tr>
+<tr>
+<td>* The current number CPU cores and threads is set to a non-default value.</td>
+<td></td>
+</tr>
+<tr>
+<td>For more information, see Configuring the Processor of the DB Instance Class (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor) in the Amazon RDS User Guide.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.processorFeatures.[].value</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>pendingModifiedValues.storageType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>performanceInsightsEnabled</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/>True if Performance Insights is enabled for the DB instance, and otherwise false.</td>
+</tr>
+<tr>
+<td><strong>readReplicaDBClusterIdentifiers</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Contains one or more identifiers of Aurora DB clusters to which the RDS DB instance is replicated as a read replica. For example, when you create an Aurora read replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the Aurora read replica is shown. This output does not contain information about cross region Aurora read replicas. <br/> Currently, each RDS DB instance can have only one Aurora read replica.</td>
+</tr>
+<tr>
+<td><strong>readReplicaDBClusterIdentifiers.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>readReplicaDBInstanceIdentifiers.[]</strong><br/>Required</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>replicaMode</strong><br/>Optional</td>
+<td><strong>string</strong><br/>The open mode of an Oracle read replica. The default is open-read-only. For more information, see Working with Oracle Read Replicas for Amazon RDS (https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-read-replicas.html) in the Amazon RDS User Guide. <br/> This attribute is only supported in RDS for Oracle.</td>
+</tr>
+<tr>
+<td><strong>secondaryAvailabilityZone</strong><br/>Optional</td>
+<td><strong>string</strong><br/>If present, specifies the name of the secondary Availability Zone for a DB instance with multi-AZ support.</td>
+</tr>
+<tr>
+<td><strong>statusInfos</strong><br/>Optional</td>
+<td><strong>array</strong><br/>The status of a read replica. If the instance isn't a read replica, this is blank.</td>
+</tr>
+<tr>
+<td><strong>statusInfos.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Provides a list of status information for a DB instance.</td>
+</tr>
+<tr>
+<td><strong>statusInfos.[].normal</strong><br/>Optional</td>
+<td><strong>boolean</strong><br/></td>
+</tr>
+<tr>
+<td><strong>statusInfos.[].status</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>statusInfos.[].statusType</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>tagList</strong><br/>Optional</td>
+<td><strong>array</strong><br/></td>
+</tr>
+<tr>
+<td><strong>tagList.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>Metadata assigned to an Amazon RDS resource consisting of a key-value pair.</td>
+</tr>
+<tr>
+<td><strong>tagList.[].value</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+<tr>
+<td><strong>vpcSecurityGroups</strong><br/>Optional</td>
+<td><strong>array</strong><br/>Provides a list of VPC security group elements that the DB instance belongs to.</td>
+</tr>
+<tr>
+<td><strong>vpcSecurityGroups.[]</strong><br/>Required</td>
+<td><strong>object</strong><br/>This data type is used as a response element for queries on VPC security group membership.</td>
+</tr>
+<tr>
+<td><strong>vpcSecurityGroups.[].vpcSecurityGroupID</strong><br/>Optional</td>
+<td><strong>string</strong><br/></td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../DBClusterParameterGroup/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              DBClusterParameterGroup
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../DBParameterGroup/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              DBParameterGroup
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/awscloud" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      
+    
+  </body>
+</html>

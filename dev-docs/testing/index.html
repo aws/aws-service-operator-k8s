@@ -1,0 +1,2588 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AWS Controllers for Kubernetes">
+      
+      
+      
+        <meta name="author" content="The ACK contributors">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+    
+    
+      
+        <title>Testing - ACK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffa724">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:300,400,400i,700%7COxygen+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Oxygen";--md-code-font-family:"Oxygen Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="orange" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#testing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ACK" class="md-header__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ACK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Testing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../user-docs/wip/" class="md-tabs__link">
+        User docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link md-tabs__link--active">
+        Contributor docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/overview/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/background/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ACK" class="md-nav__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    ACK
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      <label class="md-nav__link" for="__nav_1">
+        Home
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/" class="md-nav__link">
+        Services
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        User docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="User docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-docs/wip/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-docs/wip/" class="md-nav__link">
+        Permissions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-docs/wip/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
+        Contributor docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Contributor docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Contributor docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-generation/" class="md-nav__link">
+        Code generation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building-controller/" class="md-nav__link">
+        Building controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Testing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Testing
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-tests" class="md-nav__link">
+    Run tests
+  </a>
+  
+    <nav class="md-nav" aria-label="Run tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iam-setup" class="md-nav__link">
+    IAM setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-end-to-end-test" class="md-nav__link">
+    Run end-to-end test
+  </a>
+  
+    <nav class="md-nav" aria-label="Run end-to-end test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repeat-for-other-services" class="md-nav__link">
+    Repeat for other services
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    Background
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-up" class="md-nav__link">
+    Clean up
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release/" class="md-nav__link">
+        Release
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1" type="checkbox" id="__nav_4_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1">
+        Apigatewayv2
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apigatewayv2" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Apigatewayv2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1_1" type="checkbox" id="__nav_4_2_1_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/API/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/APIMapping/" class="md-nav__link">
+        APIMapping
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Authorizer/" class="md-nav__link">
+        Authorizer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Deployment/" class="md-nav__link">
+        Deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/DomainName/" class="md-nav__link">
+        DomainName
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Integration/" class="md-nav__link">
+        Integration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/IntegrationResponse/" class="md-nav__link">
+        IntegrationResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Route/" class="md-nav__link">
+        Route
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/RouteResponse/" class="md-nav__link">
+        RouteResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Stage/" class="md-nav__link">
+        Stage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/VPCLink/" class="md-nav__link">
+        VPCLink
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2">
+        Applicationautoscaling
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Applicationautoscaling" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Applicationautoscaling
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2_1" type="checkbox" id="__nav_4_2_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/applicationautoscaling/v1alpha1/ScalableTarget/" class="md-nav__link">
+        ScalableTarget
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/applicationautoscaling/v1alpha1/ScalingPolicy/" class="md-nav__link">
+        ScalingPolicy
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3" type="checkbox" id="__nav_4_2_3" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3">
+        Dynamodb
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dynamodb" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Dynamodb
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3_1" type="checkbox" id="__nav_4_2_3_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dynamodb/v1alpha1/Backup/" class="md-nav__link">
+        Backup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dynamodb/v1alpha1/GlobalTable/" class="md-nav__link">
+        GlobalTable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dynamodb/v1alpha1/Table/" class="md-nav__link">
+        Table
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4" type="checkbox" id="__nav_4_2_4" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4">
+        Ecr
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Ecr" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ecr
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4_1" type="checkbox" id="__nav_4_2_4_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/ecr/v1alpha1/Repository/" class="md-nav__link">
+        Repository
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5" type="checkbox" id="__nav_4_2_5" >
+      
+      <label class="md-nav__link" for="__nav_4_2_5">
+        Elasticache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticache" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5_1" type="checkbox" id="__nav_4_2_5_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_5_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/CacheParameterGroup/" class="md-nav__link">
+        CacheParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/CacheSubnetGroup/" class="md-nav__link">
+        CacheSubnetGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/ReplicationGroup/" class="md-nav__link">
+        ReplicationGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/Snapshot/" class="md-nav__link">
+        Snapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/User/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/UserGroup/" class="md-nav__link">
+        UserGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6" type="checkbox" id="__nav_4_2_6" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6">
+        Elasticsearchservice
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticsearchservice" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticsearchservice
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6_1" type="checkbox" id="__nav_4_2_6_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticsearchservice/v1alpha1/ElasticsearchDomain/" class="md-nav__link">
+        ElasticsearchDomain
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7" type="checkbox" id="__nav_4_2_7" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7">
+        Kms
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Kms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7_1" type="checkbox" id="__nav_4_2_7_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/Alias/" class="md-nav__link">
+        Alias
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/CustomKeyStore/" class="md-nav__link">
+        CustomKeyStore
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/Grant/" class="md-nav__link">
+        Grant
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/Key/" class="md-nav__link">
+        Key
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8" type="checkbox" id="__nav_4_2_8" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8">
+        Mq
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Mq" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Mq
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8_1" type="checkbox" id="__nav_4_2_8_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/mq/v1alpha1/Broker/" class="md-nav__link">
+        Broker
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9" type="checkbox" id="__nav_4_2_9" >
+      
+      <label class="md-nav__link" for="__nav_4_2_9">
+        Rds
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Rds" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Rds
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9_1" type="checkbox" id="__nav_4_2_9_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_9_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBCluster/" class="md-nav__link">
+        DBCluster
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBClusterParameterGroup/" class="md-nav__link">
+        DBClusterParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBInstance/" class="md-nav__link">
+        DBInstance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBParameterGroup/" class="md-nav__link">
+        DBParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBSecurityGroup/" class="md-nav__link">
+        DBSecurityGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBSubnetGroup/" class="md-nav__link">
+        DBSubnetGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10" type="checkbox" id="__nav_4_2_10" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10">
+        S3
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="S3" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          S3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10_1" type="checkbox" id="__nav_4_2_10_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/s3/v1alpha1/Bucket/" class="md-nav__link">
+        Bucket
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11" type="checkbox" id="__nav_4_2_11" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11">
+        Sagemaker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sagemaker" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Sagemaker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11_1" type="checkbox" id="__nav_4_2_11_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_11_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/DataQualityJobDefinition/" class="md-nav__link">
+        DataQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/Endpoint/" class="md-nav__link">
+        Endpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/EndpointConfig/" class="md-nav__link">
+        EndpointConfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/HyperParameterTuningJob/" class="md-nav__link">
+        HyperParameterTuningJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ModelBiasJobDefinition/" class="md-nav__link">
+        ModelBiasJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ModelExplainabilityJobDefinition/" class="md-nav__link">
+        ModelExplainabilityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ModelQualityJobDefinition/" class="md-nav__link">
+        ModelQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/MonitoringSchedule/" class="md-nav__link">
+        MonitoringSchedule
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ProcessingJob/" class="md-nav__link">
+        ProcessingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/TrainingJob/" class="md-nav__link">
+        TrainingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/TransformJob/" class="md-nav__link">
+        TransformJob
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12" type="checkbox" id="__nav_4_2_12" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12">
+        Sfn
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sfn" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Sfn
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12_1" type="checkbox" id="__nav_4_2_12_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_12_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sfn/v1alpha1/Activity/" class="md-nav__link">
+        Activity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sfn/v1alpha1/StateMachine/" class="md-nav__link">
+        StateMachine
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13" type="checkbox" id="__nav_4_2_13" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13">
+        Sns
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sns" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_13">
+          <span class="md-nav__icon md-icon"></span>
+          Sns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13_1" type="checkbox" id="__nav_4_2_13_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_13_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sns/v1alpha1/PlatformApplication/" class="md-nav__link">
+        PlatformApplication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sns/v1alpha1/PlatformEndpoint/" class="md-nav__link">
+        PlatformEndpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sns/v1alpha1/Topic/" class="md-nav__link">
+        Topic
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14" type="checkbox" id="__nav_4_2_14" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14">
+        Sqs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sqs" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_14">
+          <span class="md-nav__icon md-icon"></span>
+          Sqs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14_1" type="checkbox" id="__nav_4_2_14_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_14_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sqs/v1alpha1/Queue/" class="md-nav__link">
+        Queue
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Community
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/background/" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/discussions/" class="md-nav__link">
+        Discussions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/CONTRIBUTING.md" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/GOVERNANCE.md" class="md-nav__link">
+        Governance
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-tests" class="md-nav__link">
+    Run tests
+  </a>
+  
+    <nav class="md-nav" aria-label="Run tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iam-setup" class="md-nav__link">
+    IAM setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-end-to-end-test" class="md-nav__link">
+    Run end-to-end test
+  </a>
+  
+    <nav class="md-nav" aria-label="Run end-to-end test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repeat-for-other-services" class="md-nav__link">
+    Repeat for other services
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    Background
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-up" class="md-nav__link">
+    Clean up
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/aws-controllers-k8s/edit/master/docs/dev-docs/testing.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h1>
+<p>In the following, we will take you through the steps to run end-to-end (e2e)
+tests for the ACK service controller for S3. You may use these steps to run e2e
+tests for other ACK service controllers.</p>
+<p>If you run into any problems when testing a service controller, please
+<a href="https://github.com/aws-controllers-k8s/community/issues/new/choose">raise an issue</a>
+with the details so we can reproduce your issue.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>For local development and testing we use "Kubernetes in Docker" (<code>kind</code>), 
+which in turn requires Docker.</p>
+<div class="admonition warning">
+<p class="admonition-title">Footprint</p>
+<p>When you run the <code>scripts/kind-build-test.sh</code> script the first time,
+the step that builds the container image for the target ACK service
+controller can take up to 40 or more minutes. This is because the container image
+contains a lot of dependencies. Once you successfully build the target
+image this base image layer is cached locally, and the build takes a much 
+shorter amount of time. We are aware of this (and the storage footprint,
+ca. 3 GB) and aim to reduce both in the fullness of time.</p>
+</div>
+<p>In summary, in order to test ACK you will need to have the following tools
+installed and configured:</p>
+<ol>
+<li><a href="https://golang.org/doc/install">Golang 1.14+</a></li>
+<li><code>make</code></li>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a></li>
+<li><a href="https://kind.sigs.k8s.io/docs/user/quick-start/">kind</a></li>
+<li><a href="https://github.com/stedolan/jq/wiki/Installation">jq</a></li>
+</ol>
+<p>To build and test an ACK controller with <code>kind</code>, execute the commands as
+described in the following from the root directory of the
+<code>github.com/aws-controllers-k8s/community</code> repository.</p>
+<p>You should have forked this repository and <code>git clone</code>'d it locally when
+<a href="../setup/">setting up your development environment</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Recommended RAM</p>
+<p>Given that our test setup creates the container images and then launches
+a test cluster, we recommend that you have at least 4GB of RAM available
+for the tests.</p>
+</div>
+<p>With the prerequisites out of the way, let's move on to running e2e tests for a
+service controller.</p>
+<h2 id="run-tests">Run tests<a class="headerlink" href="#run-tests" title="Permanent link">&para;</a></h2>
+<p>Time to run the end-to-end test.</p>
+<h3 id="iam-setup">IAM setup<a class="headerlink" href="#iam-setup" title="Permanent link">&para;</a></h3>
+<p>In order for the ACK service controller to manage the S3 bucket, it needs an
+identity. In other words, it needs an IAM role that represents the ACK service
+controller towards the S3 service.</p>
+<p>First, define the name of the IAM role that will have the permission to manage
+S3 buckets on your behalf:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="n">ACK_TEST_IAM_ROLE</span><span class="o">=</span><span class="n">Admin</span><span class="o">-</span><span class="n">k8s</span>
+</code></pre></div>
+
+<p>Now we need to verify the IAM principal (likely an IAM user) that is going to
+assume the IAM role <code>ACK_TEST_IAM_ROLE</code>. So to get its ARN, execute:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="n">ACK_TEST_PRINCIPAL_ARN</span><span class="o">=$</span><span class="p">(</span><span class="n">aws</span> <span class="n">sts</span> <span class="n">get</span><span class="o">-</span><span class="n">caller</span><span class="o">-</span><span class="n">identity</span> <span class="o">--</span><span class="n">query</span> <span class="s1">&#39;Arn&#39;</span> <span class="o">--</span><span class="n">output</span> <span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You can verify if that worked using <code>echo $ACK_TEST_PRINCIPAL_ARN</code> and that should
+print something along the lines of <code>arn:aws:iam::1234567890121:user/ausername</code>.</p>
+<p>Next up, create the IAM role, adding the necessary trust relationship to the role,
+using the following commands:</p>
+<div class="codehilite"><pre><span></span><code>cat &gt; trust-policy.json &lt;&lt; EOF
+{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: {
+        &quot;Effect&quot;: &quot;Allow&quot;,
+        &quot;Principal&quot;: {
+            &quot;AWS&quot;: &quot;$ACK_TEST_PRINCIPAL_ARN&quot;
+        },
+        &quot;Action&quot;: &quot;sts:AssumeRole&quot;
+    }
+}
+EOF
+</code></pre></div>
+
+<p>Using above trust policy, we can now create the IAM role:</p>
+<div class="codehilite"><pre><span></span><code>aws iam create-role \
+    --role-name $ACK_TEST_IAM_ROLE \
+    --assume-role-policy-document file://trust-policy.json
+</code></pre></div>
+
+<p>Now we're in the position to give the IAM role <code>ACK_TEST_IAM_ROLE</code> the permission
+to handle S3 buckets for us, using:</p>
+<div class="codehilite"><pre><span></span><code>aws iam attach-role-policy \
+    --role-name $ACK_TEST_IAM_ROLE \
+    --policy-arn &quot;arn:aws:iam::aws:policy/AmazonS3FullAccess&quot;
+</code></pre></div>
+
+<div class="admonition tip">
+<p class="admonition-title">Access delegation in IAM</p>
+<p>If you're not that familiar with IAM access delegation, we recommend you
+to peruse the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">IAM documentation</a></p>
+</div>
+<p>Next, in order for our test to generate <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html">temporary credentials</a>
+we need to tell it to use the IAM role we created in the previous step.
+To generate the IAM role ARN, do:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">AWS_ACCOUNT_ID</span><span class="o">=$</span><span class="p">(</span><span class="n">aws</span> <span class="n">sts</span> <span class="n">get</span><span class="o">-</span><span class="n">caller</span><span class="o">-</span><span class="n">identity</span> <span class="o">--</span><span class="n">query</span> <span class="s1">&#39;Account&#39;</span> <span class="o">--</span><span class="n">output</span> <span class="n">text</span><span class="p">)</span> <span class="o">&amp;&amp;</span> \
+<span class="k">export</span> <span class="n">ACK_ROLE_ARN</span><span class="o">=</span><span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="o">$</span><span class="p">{</span><span class="n">AWS_ACCOUNT_ID</span><span class="p">}:</span><span class="n">role</span><span class="o">/$</span><span class="p">{</span><span class="n">ACK_TEST_IAM_ROLE</span><span class="p">}</span>
+</code></pre></div>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The tests uses the <code>generate_temp_creds</code> function from the
+ <code>scripts/lib/aws.sh</code> script, executing effectively 
+ <code>aws sts assume-role --role-session-arn $ACK_ROLE_ARN --role-session-name $TEMP_ROLE</code>
+ which fetches temporarily <code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>,
+ and an <code>AWS_SESSION_TOKEN</code> used in turn to authentication the ACK
+ controller. The duration of the session token is 900 seconds (15 minutes).</p>
+</div>
+<p>Phew that was a lot to set up, but good news: you're almost there.</p>
+<h3 id="run-end-to-end-test">Run end-to-end test<a class="headerlink" href="#run-end-to-end-test" title="Permanent link">&para;</a></h3>
+<p>Before you proceed, make sure that you've done the IAM setup in the previous
+step.</p>
+<div class="admonition warning">
+<p class="admonition-title">IAM troubles?!</p>
+<p>If you try the following command and you see an error message containing
+something along the line of <code>ACK_ROLE_ARN is not defined.</code> then you know
+that somewhere in the IAM setup you either left out a step or one of the
+commands failed.</p>
+</div>
+<p>Now we're finally in the position to execute the end-to-end test:</p>
+<div class="codehilite"><pre><span></span><code>make kind-test SERVICE=$SERVICE
+</code></pre></div>
+
+<p>This provisions a Kubernetes cluster using <code>kind</code>, builds a container image with
+the ACK service controller, and loads the container image into the <code>kind</code> cluster.</p>
+<p>It then installs the ACK service controller and related Kubernetes manifests into
+the <code>kind</code> cluster using <code>kustomize build | kubectl apply -f -</code>.</p>
+<p>Then, the above script runs a series of test scripts that call <code>kubectl</code>
+and the <code>aws</code> CLI tools to verify that custom resources of the type managed by
+the respective ACK service controller is created, updated and deleted
+appropriately (still TODO).</p>
+<p>Finally, it will run tests that create resources for the respective service
+and verify if the resource has successfully created. In our example case it
+should create an S3 bucket and then destroy it again, yielding something like
+the following (edited down to the relevant parts):</p>
+<div class="codehilite"><pre><span></span><code><span class="o">...</span>
+<span class="o">./</span><span class="n">scripts</span><span class="o">/</span><span class="n">kind</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">test</span><span class="o">.</span><span class="n">sh</span> <span class="o">-</span><span class="n">s</span> <span class="n">s3</span>
+<span class="n">Using</span> <span class="n">Kubernetes</span> <span class="n">kindest</span><span class="o">/</span><span class="n">node</span><span class="p">:</span><span class="n">v1</span><span class="o">.</span><span class="mf">16.9</span><span class="err">@</span><span class="n">sha256</span><span class="p">:</span><span class="mi">7175872357</span><span class="n">bc85847ec4b1aba46ed1d12fa054c83ac7a8a11f5c268957fd5765</span>
+<span class="n">Creating</span> <span class="n">k8s</span> <span class="n">cluster</span> <span class="n">using</span> <span class="s2">&quot;kind&quot;</span> <span class="o">...</span>
+<span class="n">No</span> <span class="n">kind</span> <span class="n">clusters</span> <span class="n">found</span><span class="o">.</span>
+<span class="n">Created</span> <span class="n">k8s</span> <span class="n">cluster</span> <span class="n">using</span> <span class="s2">&quot;kind&quot;</span>
+<span class="n">Building</span> <span class="n">s3</span> <span class="n">docker</span> <span class="n">image</span>
+<span class="n">Building</span> <span class="s1">&#39;s3&#39;</span> <span class="n">controller</span> <span class="n">docker</span> <span class="n">image</span> <span class="n">with</span> <span class="n">tag</span><span class="p">:</span> <span class="n">ack</span><span class="o">-</span><span class="n">s3</span><span class="o">-</span><span class="n">controller</span><span class="p">:</span><span class="n">ec452ed</span>
+<span class="n">sha256</span><span class="p">:</span><span class="n">c9cbcc028f2b7351d0507f8542ab88c80f9fb5a3b8b800feee8e362882833eef</span>
+<span class="n">Loading</span> <span class="n">the</span> <span class="n">images</span> <span class="n">into</span> <span class="n">the</span> <span class="n">cluster</span>
+<span class="n">Image</span><span class="p">:</span> <span class="s2">&quot;ack-s3-controller:ec452ed&quot;</span> <span class="n">with</span> <span class="n">ID</span> <span class="s2">&quot;sha256:c9cbcc028f2b7351d0507f8542ab88c80f9fb5a3b8b800feee8e362882833eef&quot;</span> <span class="ow">not</span> <span class="n">yet</span> <span class="n">present</span> <span class="n">on</span> <span class="n">node</span> <span class="s2">&quot;test-ccc3c7f1-worker&quot;</span><span class="p">,</span> <span class="n">loading</span><span class="o">...</span>
+<span class="n">Image</span><span class="p">:</span> <span class="s2">&quot;ack-s3-controller:ec452ed&quot;</span> <span class="n">with</span> <span class="n">ID</span> <span class="s2">&quot;sha256:c9cbcc028f2b7351d0507f8542ab88c80f9fb5a3b8b800feee8e362882833eef&quot;</span> <span class="ow">not</span> <span class="n">yet</span> <span class="n">present</span> <span class="n">on</span> <span class="n">node</span> <span class="s2">&quot;test-ccc3c7f1-control-plane&quot;</span><span class="p">,</span> <span class="n">loading</span><span class="o">...</span>
+<span class="n">Loading</span> <span class="n">CRD</span> <span class="n">manifests</span> <span class="k">for</span> <span class="n">s3</span> <span class="n">into</span> <span class="n">the</span> <span class="n">cluster</span>
+<span class="n">customresourcedefinition</span><span class="o">.</span><span class="n">apiextensions</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">buckets</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">aws</span> <span class="n">created</span>
+<span class="n">Loading</span> <span class="n">RBAC</span> <span class="n">manifests</span> <span class="k">for</span> <span class="n">s3</span> <span class="n">into</span> <span class="n">the</span> <span class="n">cluster</span>
+<span class="n">clusterrole</span><span class="o">.</span><span class="n">rbac</span><span class="o">.</span><span class="n">authorization</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">ack</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">role</span> <span class="n">created</span>
+<span class="n">clusterrolebinding</span><span class="o">.</span><span class="n">rbac</span><span class="o">.</span><span class="n">authorization</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">ack</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">rolebinding</span> <span class="n">created</span>
+<span class="n">Loading</span> <span class="n">service</span> <span class="n">controller</span> <span class="n">Deployment</span> <span class="k">for</span> <span class="n">s3</span> <span class="n">into</span> <span class="n">the</span> <span class="n">cluster</span>
+<span class="mi">2020</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">18</span> <span class="mi">09</span><span class="p">:</span><span class="mi">51</span><span class="p">:</span><span class="mi">46</span> <span class="n">Fixed</span> <span class="n">the</span> <span class="n">missing</span> <span class="n">field</span> <span class="n">by</span> <span class="n">adding</span> <span class="n">apiVersion</span><span class="p">:</span> <span class="n">kustomize</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1beta1</span>
+<span class="n">Fixed</span> <span class="n">the</span> <span class="n">missing</span> <span class="n">field</span> <span class="n">by</span> <span class="n">adding</span> <span class="n">kind</span><span class="p">:</span> <span class="n">Kustomization</span>
+<span class="n">namespace</span><span class="o">/</span><span class="n">ack</span><span class="o">-</span><span class="n">system</span> <span class="n">created</span>
+<span class="n">deployment</span><span class="o">.</span><span class="n">apps</span><span class="o">/</span><span class="n">ack</span><span class="o">-</span><span class="n">s3</span><span class="o">-</span><span class="n">controller</span> <span class="n">created</span>
+<span class="n">Running</span> <span class="n">aws</span> <span class="n">sts</span> <span class="n">assume</span><span class="o">-</span><span class="n">role</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">arn</span> <span class="n">arn</span><span class="p">:</span><span class="n">aws</span><span class="p">:</span><span class="n">iam</span><span class="p">::</span><span class="mi">1234567890121</span><span class="p">:</span><span class="n">role</span><span class="o">/</span><span class="n">Admin</span><span class="o">-</span><span class="n">k8s</span><span class="p">,</span> <span class="o">--</span><span class="n">role</span><span class="o">-</span><span class="n">session</span><span class="o">-</span><span class="n">name</span> <span class="n">tmp</span><span class="o">-</span><span class="n">role</span><span class="o">-</span><span class="mi">1</span><span class="n">b779de5</span>  <span class="o">--</span><span class="n">duration</span><span class="o">-</span><span class="n">seconds</span> <span class="mi">900</span><span class="p">,</span>
+<span class="n">Temporary</span> <span class="n">credentials</span> <span class="n">generated</span>
+<span class="n">deployment</span><span class="o">.</span><span class="n">apps</span><span class="o">/</span><span class="n">ack</span><span class="o">-</span><span class="n">s3</span><span class="o">-</span><span class="n">controller</span> <span class="n">env</span> <span class="n">updated</span>
+<span class="n">Added</span> <span class="n">AWS</span> <span class="n">Credentials</span> <span class="n">to</span> <span class="n">env</span> <span class="n">vars</span> <span class="n">map</span>
+<span class="o">======================================================================================================</span>
+<span class="n">To</span> <span class="n">poke</span> <span class="n">around</span> <span class="n">your</span> <span class="n">test</span> <span class="n">manually</span><span class="p">:</span>
+<span class="k">export</span> <span class="n">KUBECONFIG</span><span class="o">=/</span><span class="n">Users</span><span class="o">/</span><span class="n">hausenbl</span><span class="o">/</span><span class="n">ACK</span><span class="o">/</span><span class="n">upstream</span><span class="o">/</span><span class="n">aws</span><span class="o">-</span><span class="n">controllers</span><span class="o">-</span><span class="n">k8s</span><span class="o">/</span><span class="n">scripts</span><span class="o">/../</span><span class="n">build</span><span class="o">/</span><span class="n">tmp</span><span class="o">-</span><span class="n">test</span><span class="o">-</span><span class="n">ccc3c7f1</span><span class="o">/</span><span class="n">kubeconfig</span>
+<span class="n">kubectl</span> <span class="n">get</span> <span class="n">pods</span> <span class="o">-</span><span class="n">A</span>
+<span class="o">======================================================================================================</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">aws</span><span class="o">/</span><span class="n">ack</span><span class="o">-</span><span class="n">test</span><span class="o">-</span><span class="n">smoke</span><span class="o">-</span><span class="n">s3</span> <span class="n">created</span>
+<span class="p">{</span>
+  <span class="s2">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;ack-test-smoke-s3&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;CreationDate&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-08-18T08:52:04+00:00&quot;</span>
+<span class="p">}</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">s3</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">k8s</span><span class="o">.</span><span class="n">aws</span> <span class="s2">&quot;ack-test-smoke-s3&quot;</span> <span class="n">deleted</span>
+<span class="n">smoke</span> <span class="n">took</span> <span class="mi">27</span> <span class="n">second</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="err">🥑</span> <span class="n">Deleting</span> <span class="n">k8s</span> <span class="n">cluster</span> <span class="n">using</span> <span class="s2">&quot;kind&quot;</span>
+<span class="n">Deleting</span> <span class="n">cluster</span> <span class="s2">&quot;test-ccc3c7f1&quot;</span> <span class="o">...</span>
+</code></pre></div>
+
+<p>As you can see, in above case the end-to-end test (creating cluster, deploying
+ACK, applying custom resources, and tear-down) took less than 30 seconds. This
+is for the warmed caches case.</p>
+<h4 id="repeat-for-other-services">Repeat for other services<a class="headerlink" href="#repeat-for-other-services" title="Permanent link">&para;</a></h4>
+<p>We have end-to-end tests for all services listed in the <code>DEVELOPER-PREVIEW</code>,
+<code>BETA</code> and <code>GA</code> release statuses in our <a href="../services">service listing</a>
+document. Simply replace your <code>SERVICE</code> environment variable with the name of a
+supported service and re-run the IAM and test steps outlined above.</p>
+<h3 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h3>
+<p>We use <a href="https://github.com/vektra/mockery">mockery</a> for unit testing.
+You can install it by following the guideline on mockery's GitHub or simply
+by running our handy script at <code>./scripts/install-mockery.sh</code> for general
+Linux environments.</p>
+<p>We track testing in the umbrella <a href="https://github.com/aws-controllers-k8s/community/issues/6">issue 6</a>.
+on GitHub. Use this issue as a starting point and if you create a new
+testing-related issue, mention it from there.</p>
+<h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
+<p>To clean up a <code>kind</code> cluster, including the container images and configuration 
+files created by the script specifically for said test cluster, execute:</p>
+<div class="codehilite"><pre><span></span><code>kind delete cluster --name $CLUSTER_NAME
+</code></pre></div>
+
+<p>If you want to delete all <code>kind</code> cluster running on your machine, use: </p>
+<div class="codehilite"><pre><span></span><code>make delete-all-kind-clusters
+</code></pre></div>
+
+<p>With this the testing is completed. Thanks for your time and we appreciate your
+feedback.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../building-controller/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Building controller
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../release/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Release
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/awscloud" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      
+    
+  </body>
+</html>

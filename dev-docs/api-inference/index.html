@@ -1,0 +1,2700 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AWS Controllers for Kubernetes">
+      
+      
+      
+        <meta name="author" content="The ACK contributors">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.5">
+    
+    
+      
+        <title>API Inference - ACK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffa724">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen:300,400,400i,700%7COxygen+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Oxygen";--md-code-font-family:"Oxygen Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="orange" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-inference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ACK" class="md-header__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ACK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Inference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../user-docs/wip/" class="md-tabs__link">
+        User docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        Contributor docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/overview/" class="md-tabs__link">
+        Reference
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../community/background/" class="md-tabs__link">
+        Community
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ACK" class="md-nav__button md-logo" aria-label="ACK" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    ACK
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/aws/aws-controllers-k8s/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    aws/aws-controllers-k8s
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      <label class="md-nav__link" for="__nav_1">
+        Home
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/" class="md-nav__link">
+        Services
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        User docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="User docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-docs/wip/" class="md-nav__link">
+        Install
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-docs/wip/" class="md-nav__link">
+        Permissions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-docs/wip/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Contributor docs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Contributor docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Contributor docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code-generation/" class="md-nav__link">
+        Code generation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building-controller/" class="md-nav__link">
+        Building controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release/" class="md-nav__link">
+        Release
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1" type="checkbox" id="__nav_4_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1">
+        Apigatewayv2
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Apigatewayv2" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Apigatewayv2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_1_1" type="checkbox" id="__nav_4_2_1_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_1_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/API/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/APIMapping/" class="md-nav__link">
+        APIMapping
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Authorizer/" class="md-nav__link">
+        Authorizer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Deployment/" class="md-nav__link">
+        Deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/DomainName/" class="md-nav__link">
+        DomainName
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Integration/" class="md-nav__link">
+        Integration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/IntegrationResponse/" class="md-nav__link">
+        IntegrationResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Route/" class="md-nav__link">
+        Route
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/RouteResponse/" class="md-nav__link">
+        RouteResponse
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/Stage/" class="md-nav__link">
+        Stage
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apigatewayv2/v1alpha1/VPCLink/" class="md-nav__link">
+        VPCLink
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2" type="checkbox" id="__nav_4_2_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2">
+        Applicationautoscaling
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Applicationautoscaling" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Applicationautoscaling
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_2_1" type="checkbox" id="__nav_4_2_2_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_2_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/applicationautoscaling/v1alpha1/ScalableTarget/" class="md-nav__link">
+        ScalableTarget
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/applicationautoscaling/v1alpha1/ScalingPolicy/" class="md-nav__link">
+        ScalingPolicy
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3" type="checkbox" id="__nav_4_2_3" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3">
+        Dynamodb
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Dynamodb" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Dynamodb
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_3_1" type="checkbox" id="__nav_4_2_3_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_3_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dynamodb/v1alpha1/Backup/" class="md-nav__link">
+        Backup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dynamodb/v1alpha1/GlobalTable/" class="md-nav__link">
+        GlobalTable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dynamodb/v1alpha1/Table/" class="md-nav__link">
+        Table
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4" type="checkbox" id="__nav_4_2_4" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4">
+        Ecr
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Ecr" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ecr
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_4_1" type="checkbox" id="__nav_4_2_4_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_4_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/ecr/v1alpha1/Repository/" class="md-nav__link">
+        Repository
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5" type="checkbox" id="__nav_4_2_5" >
+      
+      <label class="md-nav__link" for="__nav_4_2_5">
+        Elasticache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticache" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_5_1" type="checkbox" id="__nav_4_2_5_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_5_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/CacheParameterGroup/" class="md-nav__link">
+        CacheParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/CacheSubnetGroup/" class="md-nav__link">
+        CacheSubnetGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/ReplicationGroup/" class="md-nav__link">
+        ReplicationGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/Snapshot/" class="md-nav__link">
+        Snapshot
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/User/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticache/v1alpha1/UserGroup/" class="md-nav__link">
+        UserGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6" type="checkbox" id="__nav_4_2_6" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6">
+        Elasticsearchservice
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Elasticsearchservice" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Elasticsearchservice
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_6_1" type="checkbox" id="__nav_4_2_6_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_6_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/elasticsearchservice/v1alpha1/ElasticsearchDomain/" class="md-nav__link">
+        ElasticsearchDomain
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7" type="checkbox" id="__nav_4_2_7" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7">
+        Kms
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kms" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Kms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_7_1" type="checkbox" id="__nav_4_2_7_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_7_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/Alias/" class="md-nav__link">
+        Alias
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/CustomKeyStore/" class="md-nav__link">
+        CustomKeyStore
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/Grant/" class="md-nav__link">
+        Grant
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kms/v1alpha1/Key/" class="md-nav__link">
+        Key
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8" type="checkbox" id="__nav_4_2_8" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8">
+        Mq
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Mq" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Mq
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_8_1" type="checkbox" id="__nav_4_2_8_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_8_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/mq/v1alpha1/Broker/" class="md-nav__link">
+        Broker
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9" type="checkbox" id="__nav_4_2_9" >
+      
+      <label class="md-nav__link" for="__nav_4_2_9">
+        Rds
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Rds" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Rds
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_9_1" type="checkbox" id="__nav_4_2_9_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_9_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_9_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBCluster/" class="md-nav__link">
+        DBCluster
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBClusterParameterGroup/" class="md-nav__link">
+        DBClusterParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBInstance/" class="md-nav__link">
+        DBInstance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBParameterGroup/" class="md-nav__link">
+        DBParameterGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBSecurityGroup/" class="md-nav__link">
+        DBSecurityGroup
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/rds/v1alpha1/DBSubnetGroup/" class="md-nav__link">
+        DBSubnetGroup
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10" type="checkbox" id="__nav_4_2_10" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10">
+        S3
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="S3" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          S3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_10_1" type="checkbox" id="__nav_4_2_10_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_10_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/s3/v1alpha1/Bucket/" class="md-nav__link">
+        Bucket
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11" type="checkbox" id="__nav_4_2_11" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11">
+        Sagemaker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sagemaker" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Sagemaker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_11_1" type="checkbox" id="__nav_4_2_11_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_11_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_11_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/DataQualityJobDefinition/" class="md-nav__link">
+        DataQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/Endpoint/" class="md-nav__link">
+        Endpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/EndpointConfig/" class="md-nav__link">
+        EndpointConfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/HyperParameterTuningJob/" class="md-nav__link">
+        HyperParameterTuningJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/Model/" class="md-nav__link">
+        Model
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ModelBiasJobDefinition/" class="md-nav__link">
+        ModelBiasJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ModelExplainabilityJobDefinition/" class="md-nav__link">
+        ModelExplainabilityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ModelQualityJobDefinition/" class="md-nav__link">
+        ModelQualityJobDefinition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/MonitoringSchedule/" class="md-nav__link">
+        MonitoringSchedule
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/ProcessingJob/" class="md-nav__link">
+        ProcessingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/TrainingJob/" class="md-nav__link">
+        TrainingJob
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sagemaker/v1alpha1/TransformJob/" class="md-nav__link">
+        TransformJob
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12" type="checkbox" id="__nav_4_2_12" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12">
+        Sfn
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sfn" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_12">
+          <span class="md-nav__icon md-icon"></span>
+          Sfn
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_12_1" type="checkbox" id="__nav_4_2_12_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_12_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_12_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sfn/v1alpha1/Activity/" class="md-nav__link">
+        Activity
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sfn/v1alpha1/StateMachine/" class="md-nav__link">
+        StateMachine
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13" type="checkbox" id="__nav_4_2_13" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13">
+        Sns
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sns" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_13">
+          <span class="md-nav__icon md-icon"></span>
+          Sns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_13_1" type="checkbox" id="__nav_4_2_13_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_13_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_13_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sns/v1alpha1/PlatformApplication/" class="md-nav__link">
+        PlatformApplication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sns/v1alpha1/PlatformEndpoint/" class="md-nav__link">
+        PlatformEndpoint
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sns/v1alpha1/Topic/" class="md-nav__link">
+        Topic
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14" type="checkbox" id="__nav_4_2_14" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14">
+        Sqs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Sqs" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_14">
+          <span class="md-nav__icon md-icon"></span>
+          Sqs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2_14_1" type="checkbox" id="__nav_4_2_14_1" >
+      
+      <label class="md-nav__link" for="__nav_4_2_14_1">
+        V1alpha1
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="V1alpha1" data-md-level="4">
+        <label class="md-nav__title" for="__nav_4_2_14_1">
+          <span class="md-nav__icon md-icon"></span>
+          V1alpha1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sqs/v1alpha1/Queue/" class="md-nav__link">
+        Queue
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        Community
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Community" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Community
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/background/" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/discussions/" class="md-nav__link">
+        Discussions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/CONTRIBUTING.md" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/aws/aws-controllers-k8s/blob/master/GOVERNANCE.md" class="md-nav__link">
+        Governance
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-kubernetes-resource-model" class="md-nav__link">
+    The Kubernetes Resource Model
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#which-things-become-ack-resources" class="md-nav__link">
+    Which things become ACK Resources?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-an-ack-resource-defined" class="md-nav__link">
+    How is an ACK Resource Defined?
+  </a>
+  
+    <nav class="md-nav" aria-label="How is an ACK Resource Defined?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#determining-the-spec-fields" class="md-nav__link">
+    Determining the Spec fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#determining-the-status-fields" class="md-nav__link">
+    Determining the Status fields
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws/aws-controllers-k8s/edit/master/docs/dev-docs/api-inference.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="api-inference">API Inference<a class="headerlink" href="#api-inference" title="Permanent link">&para;</a></h1>
+<p>This document discusses how ACK introspects an AWS API model file and
+determines which <code>CustomResourceDefinition</code>s (CRDs) to construct and what the
+structure of those CRDs look like.</p>
+<h2 id="the-kubernetes-resource-model">The Kubernetes Resource Model<a class="headerlink" href="#the-kubernetes-resource-model" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/">Kubernetes Resource Model</a> (KRM) is a set of <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md">standards</a>
+and naming conventions that govern how an <a href="https://kubernetes.io/docs/reference/glossary/?all=true#term-object"><code>Object</code></a> may be created and
+updated.</p>
+<p>An <code>Object</code> includes some metadata about the object -- a
+<a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#resources"><code>GroupVersionKind</code></a> (GVK), a <code>Name</code>, a <code>Namespace</code>, and zero or more <code>Labels</code>
+and <code>Annotations</code>.</p>
+<p>In addition to this metadata, each <code>Object</code> has a <code>Spec</code> field which is a
+struct that contains the <strong>desired</strong> state of the <code>Object</code>. <code>Objects</code> are
+typically denoted using YAML, like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3.services.k8s.aws/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bucket</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-amazing-bucket</span>
+  <span class="nt">annotations</span><span class="p">:</span>
+    <span class="nt">pronounced-as</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boo-kay</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-amazing-bucket</span>
+</code></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Manifests</p>
+<p>The YAML files containing an object definition like above are typically
+called <a href="https://kubernetes.io/docs/reference/glossary/?fundamental=true#term-manifest"><strong>manifests</strong></a>.</p>
+</div>
+<p>Above, the <code>Object</code> has a GVK of "s3.services.k8s.aws/v1alpha1:Bucket" with an
+<strong>internal-to-Kubernetes</strong> <code>Name</code> of "my-amazing-bucket" and a single
+<code>Annotation</code> key/value pair "pronounced-as: boo-kay".</p>
+<p>The <code>Spec</code> field is a structure containing desired state fields about this
+Bucket. You can see here that there is a <code>Spec.Name</code> field representing the
+Bucket name that will be passed to the S3 CreateBucket API as the name of the
+Bucket. Note that the <code>Metadata.Name</code> field value is the same as the
+<code>Spec.Name</code> field value here, but there's nothing mandatory about this.</p>
+<p>When a Kubernetes user creates an <code>Object</code>, typically by passing some YAML to
+the <code>kubectl create</code> or <code>kubectl apply</code> CLI command, the Kubernetes API server
+reads the manifest and determines whether the supplied contents are valid.</p>
+<p>In order to determine if a manifest is valid, the Kubernetes API server must
+look up the <strong>definition</strong> of the specified <code>GroupVersionKind</code>. For all of the
+resources that ACK is concerned about, what this means is that the Kubernetes
+API server will search for the <a href="https://kubernetes.io/docs/reference/glossary/?fundamental=true#term-CustomResourceDefinition"><code>CustomResourceDefinition</code></a> (CRD) matching
+the <code>GroupVersionKind</code>.</p>
+<p>This CRD describes the fields that comprise <code>Object</code>s of that particular
+<code>GroupVersionKind</code> -- called <code>CustomResources</code> (CRs).</p>
+<p>In the next sections we discuss:</p>
+<ul>
+<li>how ACK determines what will become a CRD</li>
+<li>how ACK determines the fields that go into each CRD's <code>Spec</code> and <code>Status</code></li>
+</ul>
+<h2 id="which-things-become-ack-resources">Which things become ACK Resources?<a class="headerlink" href="#which-things-become-ack-resources" title="Permanent link">&para;</a></h2>
+<p>As mentioned in the <a href="https://aws-controllers-k8s.github.io/community/dev-docs/code-generation/">code generation documentation</a>, ACK reads AWS API
+model files when generating its API types and controller implementations. These
+model files are JSON files contain some important information about the
+structure of the AWS service API, including a set of <em>Operation</em> definitions
+(commonly called "Actions" in the official AWS API documentation) and a set of
+<em>Shape</em> definitions.</p>
+<p>Some AWS APIs have dozens (hundreds even!) of Operations exposed by the API.
+Consider EC2's API. It has over <strong>400 separate Actions</strong>. Out of all those
+Operations, how are we to tell which ones refer to something that we can model
+as a Kubernetes <code>CustomResource</code>?</p>
+<p>Well, we could look at the EC2 API's list of Operations and manually decide
+which ones seem "resource-y". Operations like "AdvertiseByoipCidr" and
+"AcceptTransitGatewayVpcAttachment" don't seem very "resource-y". Operations
+like "CreateKeyPair" and "DeleteKeyPair", however, do seem like they would
+match a resource called "KeyPair".</p>
+<p>And this is actually how ACK decides what is a <code>CustomResource</code> and what isn't.</p>
+<p>It uses a simple heuristic: <em>look through the list of Operations in the API
+model file and filter out the ones that start with the string "Create". If what
+comes after the word "Create" describes a singular noun, then we create a
+<code>CustomResource</code> of that <code>Kind</code></em>.</p>
+<p>It really is that simple.</p>
+<h2 id="how-is-an-ack-resource-defined">How is an ACK Resource Defined?<a class="headerlink" href="#how-is-an-ack-resource-defined" title="Permanent link">&para;</a></h2>
+<p>Let's take a look at the <a href="https://github.com/aws/aws-controllers-k8s/blob/df6183acdc5b9b8508ea2fc8ec8c39fd19301ac6/services/s3/config/crd/bases/s3.services.k8s.aws_buckets.yaml">CRD for ACK's S3 Bucket</a> (the
+<code>s3.services.k8s.aws/Bucket</code> <code>GroupKind</code> (GK)) (snipped slightly for brevity):</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apiextensions.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CustomResourceDefinition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">buckets.s3.services.k8s.aws</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">group</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3.services.k8s.aws</span>
+  <span class="nt">names</span><span class="p">:</span>
+    <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bucket</span>
+  <span class="nt">scope</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Namespaced</span>
+  <span class="nt">versions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1alpha1</span>
+    <span class="nt">schema</span><span class="p">:</span>
+      <span class="nt">openAPIV3Schema</span><span class="p">:</span>
+        <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bucket is the Schema for the Buckets API</span>
+        <span class="nt">properties</span><span class="p">:</span>
+          <span class="nt">apiVersion</span><span class="p">:</span>
+            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+          <span class="nt">kind</span><span class="p">:</span>
+            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+          <span class="nt">metadata</span><span class="p">:</span>
+            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+          <span class="nt">spec</span><span class="p">:</span>
+            <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BucketSpec defines the desired state of Bucket</span>
+            <span class="nt">properties</span><span class="p">:</span>
+              <span class="nt">acl</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">createBucketConfiguration</span><span class="p">:</span>
+                <span class="nt">properties</span><span class="p">:</span>
+                  <span class="nt">locationConstraint</span><span class="p">:</span>
+                    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+              <span class="nt">grantFullControl</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">grantRead</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">grantReadACP</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">grantWrite</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">grantWriteACP</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">name</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+              <span class="nt">objectLockEnabledForBucket</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">boolean</span>
+            <span class="nt">required</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
+            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+          <span class="nt">status</span><span class="p">:</span>
+            <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BucketStatus defines the observed state of Bucket</span>
+            <span class="nt">properties</span><span class="p">:</span>
+              <span class="nt">ackResourceMetadata</span><span class="p">:</span>
+                <span class="nt">properties</span><span class="p">:</span>
+                  <span class="nt">arn</span><span class="p">:</span>
+                    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                  <span class="nt">ownerAccountID</span><span class="p">:</span>
+                    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                <span class="nt">required</span><span class="p">:</span>
+                <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ownerAccountID</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+              <span class="nt">conditions</span><span class="p">:</span>
+                <span class="nt">items</span><span class="p">:</span>
+                  <span class="nt">properties</span><span class="p">:</span>
+                    <span class="nt">lastTransitionTime</span><span class="p">:</span>
+                      <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">date-time</span>
+                      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                    <span class="nt">message</span><span class="p">:</span>
+                      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                    <span class="nt">reason</span><span class="p">:</span>
+                      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                    <span class="nt">status</span><span class="p">:</span>
+                      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                    <span class="nt">type</span><span class="p">:</span>
+                      <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+                  <span class="nt">required</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">status</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">type</span>
+                  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">array</span>
+              <span class="nt">location</span><span class="p">:</span>
+                <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">string</span>
+            <span class="nt">required</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ackResourceMetadata</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">conditions</span>
+            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">object</span>
+</code></pre></div>
+
+<p>The above YAML representation of a <code>CustomResourceDefinition</code> (CRD) is actually
+generated from a set of Go type definitions. These Go type definitions live in
+each ACK service's <code>services/$SERVICE/apis/$VERSION</code> directory.</p>
+<p>This section of our documentation discusses how we create those Go type
+definitions.</p>
+<div class="admonition note">
+<p class="admonition-title">controller-gen crd</p>
+<p>The OpenAPIv3 Validating Schema shown above is created by the
+<a href="https://book.kubebuilder.io/reference/controller-gen.html"><code>controller-gen crd</code></a> CLI command and is a convenient human-readable
+representation of the <code>CustomResourceDefinition</code>.</p>
+</div>
+<p>The Bucket CR's <code>Spec</code> field is defined above as containing a set of fields --
+"acl", "createBucketConfiguration", "name", etc. Each field has a JSONSchema
+type that corresponds with the Go type from the associated field member.</p>
+<p>You will also notice that in addition to the definition of a <code>Spec</code> field,
+there is also the definition of a <code>Status</code> field for the Bucket CRs. Above,
+this <code>Status</code> contains fields that represent the "observed" state of the Bucket
+CRs. The above shows three fields in the Bucket's <code>Status</code>:
+<code>ackResourceMetadata</code>, <code>conditions</code> and <code>location</code>.</p>
+<p>You might be wondering how the ACK code generator determined which fields go
+into the Bucket's <code>Spec</code> and which fields go into the Bucket's <code>Status</code>?</p>
+<p>Well, it's definitely not a manual process. Everything in ACK is code-generated
+and discovered by inspecting the AWS API model files.</p>
+<div class="admonition note">
+<p class="admonition-title">what are AWS API model files?</p>
+<p>The AWS API model files are JSON files that contain information about a
+particular AWS service API's Actions and Shapes. We consume the model files
+<a href="https://github.com/aws/aws-sdk-go/tree/master/models/apis">distributed</a> in the <code>aws-sdk-go</code> project. (Look
+for the <code>api-2.json</code> files in the linked service-specific directories...)</p>
+</div>
+<p>Let's take a look at a tiny bit of the <a href="https://github.com/aws/aws-controllers-k8s/blob/main/pkg/generate/testdata/models/apis/s3/0000-00-00/api-2.json">AWS S3 API model file</a> and
+you can start to see how we identify the things that go into the <code>Spec</code> and
+<code>Status</code> fields.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:{</span>
+    <span class="nt">&quot;serviceId&quot;</span><span class="p">:</span><span class="s2">&quot;S3&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;operations&quot;</span><span class="p">:{</span>
+    <span class="nt">&quot;CreateBucket&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;CreateBucket&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;http&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="s2">&quot;PUT&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;requestUri&quot;</span><span class="p">:</span><span class="s2">&quot;/{Bucket}&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;input&quot;</span><span class="p">:{</span><span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;CreateBucketRequest&quot;</span><span class="p">},</span>
+      <span class="nt">&quot;output&quot;</span><span class="p">:{</span><span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;CreateBucketOutput&quot;</span><span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;shapes&quot;</span><span class="p">:{</span>
+    <span class="nt">&quot;BucketCannedACL&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;enum&quot;</span><span class="p">:[</span>
+        <span class="s2">&quot;private&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;public-read&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;public-read-write&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;authenticated-read&quot;</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;BucketName&quot;</span><span class="p">:{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;string&quot;</span><span class="p">},</span>
+    <span class="nt">&quot;CreateBucketConfiguration&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;structure&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;members&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;LocationConstraint&quot;</span><span class="p">:{</span><span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;BucketLocationConstraint&quot;</span><span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;CreateBucketOutput&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;structure&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;members&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;Location&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;Location&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;CreateBucketRequest&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;structure&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;required&quot;</span><span class="p">:[</span><span class="s2">&quot;Bucket&quot;</span><span class="p">],</span>
+      <span class="nt">&quot;members&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;ACL&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;BucketCannedACL&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;Bucket&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;BucketName&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;CreateBucketConfiguration&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;CreateBucketConfiguration&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;GrantFullControl&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;GrantFullControl&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;GrantRead&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;GrantRead&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;GrantReadACP&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;GrantReadACP&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;GrantWrite&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;GrantWrite&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;GrantWriteACP&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;GrantWriteACP&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;ObjectLockEnabledForBucket&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;ObjectLockEnabledForBucket&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>As mentioned above, we determine what things in an API are
+<code>CustomResourceDefinition</code>s by looking for <code>Operation</code>s that begin with the
+string "Create" and where the remainder of the <code>Operation</code> name refers to a
+<em>singular</em> noun.</p>
+<p>For the S3 API, there happens to be only a single Operation that begins with
+the string "Create", and it happens to be "<a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html">CreateBucket</a>".
+And since "Bucket" refers to a singular noun, that is the
+<code>CustomResourceDefinition</code> that is identified by the ACK code generator.</p>
+<p>The ACK code generator writes a file <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/apis/v1alpha1/bucket.go"><code>apis/v1alpha1/bucket.go</code></a>
+that contains a <code>BucketSpec</code> struct definition, a <code>BucketStatus</code> struct
+definition and a <code>Bucket</code> struct definition that ties the Spec and Status
+together into our CRD.</p>
+<p>In determining the structure of the <code>s3.services.k8s.aws/Bucket</code> CRD, the ACK
+code generator inspects the <code>Shape</code>s referred to by the "input" and "output"
+members of the "CreateBucket" <code>Operation</code>: "CreateBucketRequest" and
+"CreateBucketOutput" respectively.</p>
+<h3 id="determining-the-spec-fields">Determining the Spec fields<a class="headerlink" href="#determining-the-spec-fields" title="Permanent link">&para;</a></h3>
+<p>For the <code>BucketSpec</code> fields, we grab members of the <code>Input</code> shape. The
+<a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/apis/v1alpha1/bucket.go#L23-L35">generated Go type definition</a> for the <code>BucketSpec</code> ends up looking
+like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// BucketSpec defines the desired state of Bucket</span>
+<span class="kd">type</span> <span class="nx">BucketSpec</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">ACL</span>                       <span class="o">*</span><span class="kt">string</span>                    <span class="s">`json:&quot;acl,omitempty&quot;`</span>
+    <span class="nx">CreateBucketConfiguration</span> <span class="o">*</span><span class="nx">CreateBucketConfiguration</span> <span class="s">`json:&quot;createBucketConfiguration,omitempty&quot;`</span>
+    <span class="nx">GrantFullControl</span>          <span class="o">*</span><span class="kt">string</span>                    <span class="s">`json:&quot;grantFullControl,omitempty&quot;`</span>
+    <span class="nx">GrantRead</span>                 <span class="o">*</span><span class="kt">string</span>                    <span class="s">`json:&quot;grantRead,omitempty&quot;`</span>
+    <span class="nx">GrantReadACP</span>              <span class="o">*</span><span class="kt">string</span>                    <span class="s">`json:&quot;grantReadACP,omitempty&quot;`</span>
+    <span class="nx">GrantWrite</span>                <span class="o">*</span><span class="kt">string</span>                    <span class="s">`json:&quot;grantWrite,omitempty&quot;`</span>
+    <span class="nx">GrantWriteACP</span>             <span class="o">*</span><span class="kt">string</span>                    <span class="s">`json:&quot;grantWriteACP,omitempty&quot;`</span>
+    <span class="c1">// +kubebuilder:validation:Required</span>
+    <span class="nx">Name</span>                       <span class="o">*</span><span class="kt">string</span> <span class="s">`json:&quot;name&quot;`</span>
+    <span class="nx">ObjectLockEnabledForBucket</span> <span class="o">*</span><span class="kt">bool</span>   <span class="s">`json:&quot;objectLockEnabledForBucket,omitempty&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Let's take a closer look at the <code>BucketSpec</code> fields.</p>
+<p>The <code>ACL</code>, <code>GrantFullControl</code>, <code>GrantRead</code>, <code>GrantReadACP</code>, <code>GrantWrite</code> and
+<code>GrantWriteACP</code> fields are simple <code>*string</code> types. However, if we look at the
+<code>CreateBucketRequest</code> Shape definition in the API model file, we see that these
+fields actually are differently-named Shapes, not <code>*string</code>. Why is this? Well,
+the ACK code generator "flattens" some Shapes when it notices that a named
+Shape is just an alias for a simple scalar type (like <code>*string</code>).</p>
+<p>!!! "why <code>*string</code>?"
+    The astute reader may be wondering why the Go type for string fields is
+    <code>*string</code> and not <code>string</code>. The reason for this lies in <code>aws-sdk-go</code>. All
+    types for all Shape members are pointer types, even when the underlying
+    data type is a simple scalar type like <code>bool</code> or <code>int</code>. Yes, even when
+    the field is required...</p>
+<p>Note that even though the <code>ACL</code> field has a Shape of <code>BucketCannedACL</code>, that
+Shape is actually just a <code>string</code> with a set of enumerated values. Enumerated
+values are collected and written out by the ACK code generator into an
+<a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/apis/v1alpha1/enums.go"><code>apis/v1alpha1/enums.go</code></a> file, with content like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">BucketCannedACL</span> <span class="kt">string</span>
+
+<span class="kd">const</span> <span class="p">(</span>
+    <span class="nx">BucketCannedACL_private</span>            <span class="nx">BucketCannedACL</span> <span class="p">=</span> <span class="s">&quot;private&quot;</span>
+    <span class="nx">BucketCannedACL_public_read</span>        <span class="nx">BucketCannedACL</span> <span class="p">=</span> <span class="s">&quot;public-read&quot;</span>
+    <span class="nx">BucketCannedACL_public_read_write</span>  <span class="nx">BucketCannedACL</span> <span class="p">=</span> <span class="s">&quot;public-read-write&quot;</span>
+    <span class="nx">BucketCannedACL_authenticated_read</span> <span class="nx">BucketCannedACL</span> <span class="p">=</span> <span class="s">&quot;authenticated-read&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>The <code>CreateBucketConfiguration</code> field is of type <code>*CreateBucketConfiguration</code>.
+All this means is that the field refers to a nested struct. All struct type
+definitions for CRD Spec or Status field members are placed by the ACK code
+generator into a <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/apis/v1alpha1/types.go"><code>apis/v1alpha1/types.go</code></a> file.</p>
+<p>Here is a <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/apis/v1alpha1/types.go#L36-L38">snippet</a> of that file that contains the type definition for
+the <code>CreateBucketConfiguration</code> struct:</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">type</span> <span class="nx">CreateBucketConfiguration</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">LocationConstraint</span> <span class="o">*</span><span class="kt">string</span> <span class="s">`json:&quot;locationConstraint,omitempty&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Now, the <code>Name</code> field in the <code>BucketSpec</code> struct seems out of place, no? There
+is no "Name" member of the <code>CreateBucketRequest</code> Shape, so why is there a
+<code>Name</code> field in <code>BucketSpec</code>?</p>
+<p>Well, this is an example of ACK's code generator using some special
+instructions contained in something called the <code>generator.yaml</code> (or "generator
+config") for the S3 service controller.</p>
+<p>Each service in the <code>services/</code> directory can have a <code>generator.yaml</code> file that
+contains overrides and special instructions for how to interpret and transform
+parts of the service's API.</p>
+<p>Here is part of the <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/generator.yaml">S3 service's <code>generator.yaml</code></a> file:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">resources</span><span class="p">:</span>
+  <span class="nt">Bucket</span><span class="p">:</span>
+    <span class="nt">renames</span><span class="p">:</span>
+      <span class="nt">operations</span><span class="p">:</span>
+        <span class="nt">CreateBucket</span><span class="p">:</span>
+          <span class="nt">input_fields</span><span class="p">:</span>
+            <span class="nt">Bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+</code></pre></div>
+
+<p>As you can see, the generator config for the ACK S3 service controller is
+renaming the <code>CreateBucket</code> Operation's Input Shape <code>Bucket</code> field to <code>Name</code>.
+We do this for some APIs to add a little consistency and a more
+Kubernetes-native experience for the CRDs. In Kubernetes, there is a
+<code>Metadata.Name</code> (internal Kubernetes name) and there is typically a <code>Spec.Name</code>
+field which refers to the <strong>external</strong> Name of the resource. So, in order to
+align the <code>s3.services.k8s.aws/Bucket</code>'s definition to be more Kubernetes-like,
+we rename the <code>Bucket</code> field to <code>Name</code>.</p>
+<p>We do this renaming for other things that produce a bit of a
+"<a href="https://github.com/aws/aws-sdk-go/blob/master/private/model/api/legacy_stutter.go">stutter</a>", as well as where the name of a field does not conform to
+Go exported name constraints or <a href="https://golang.org/doc/effective_go.html#names">naming best practices</a>.</p>
+<h3 id="determining-the-status-fields">Determining the Status fields<a class="headerlink" href="#determining-the-status-fields" title="Permanent link">&para;</a></h3>
+<p>Remember that fields in a CR's <code>Status</code> struct are not mutable by normal
+Kubernetes users. Instead, these fields represent the latest observed state of
+a resource (instead of the <em>desired</em> state of that resource which is
+represented by fields in the CR's <code>Spec</code> struct).</p>
+<p>The ACK code generator takes the members of the Create <code>Operation</code>'s <code>Output</code>
+shape and puts those fields into the CR's <code>Status</code> struct.</p>
+<p>We assume that fields in the <code>Output</code> that have the same name as fields in the
+<code>Input</code> shape for the Create <code>Operation</code> refer to the resource field that was
+set in the <code>Spec</code> field and therefore <strong>are only interested in fields in the
+<code>Output</code> that are not in the <code>Input</code></strong>.</p>
+<p>Looking at the <code>BucketSpec</code> struct definition that was generated after
+processing the S3 API model file, we find <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/services/s3/apis/v1alpha1/bucket.go#L37-L49">this</a>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// BucketStatus defines the observed state of Bucket</span>
+<span class="kd">type</span> <span class="nx">BucketStatus</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="c1">// All CRs managed by ACK have a common `Status.ACKResourceMetadata` member</span>
+    <span class="c1">// that is used to contain resource sync state, account ownership,</span>
+    <span class="c1">// constructed ARN for the resource</span>
+    <span class="nx">ACKResourceMetadata</span> <span class="o">*</span><span class="nx">ackv1alpha1</span><span class="p">.</span><span class="nx">ResourceMetadata</span> <span class="s">`json:&quot;ackResourceMetadata&quot;`</span>
+    <span class="c1">// All CRS managed by ACK have a common `Status.Conditions` member that</span>
+    <span class="c1">// contains a collection of `ackv1alpha1.Condition` objects that describe</span>
+    <span class="c1">// the various terminal states of the CR and its backend AWS service API</span>
+    <span class="c1">// resource</span>
+    <span class="nx">Conditions</span> <span class="p">[]</span><span class="o">*</span><span class="nx">ackv1alpha1</span><span class="p">.</span><span class="nx">Condition</span> <span class="s">`json:&quot;conditions&quot;`</span>
+    <span class="nx">Location</span>   <span class="o">*</span><span class="kt">string</span>                  <span class="s">`json:&quot;location,omitempty&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Let's discuss each of the fields shown above.</p>
+<p>First, the <code>ACKResourceMetadata</code> field is included in <strong>every ACK CRD's Status
+field</strong>. It is a pointer to a <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/apis/core/v1alpha1/resource_metadata.go#L16-L33"><code>ackv1alpha1.ResourceMetadata</code></a> struct.
+This struct contains some standard and important pieces of information about
+the resource, including the AWS Resource Name (ARN) and the Owner AWS Account
+ID.</p>
+<p>The ARN is a globally-unique identifier for the resource in AWS. The Owner AWS
+Account ID is the 12-digit AWS account ID that is billed for the resource.</p>
+<div class="admonition note">
+<p class="admonition-title">cross-account resource management</p>
+<p>The Owner AWS Account ID for a resource <a href="https://aws-controllers-k8s.github.io/community/user-docs/authorization/#create-resource-in-different-aws-accounts">may be different</a> from the
+AWS Account ID of the IAM Role that the ACK service controller is executing
+under.</p>
+</div>
+<p>The <code>Conditions</code> field is also included in every ACK CRD's Status field. It is
+a slice of pointers to <a href="https://github.com/aws/aws-controllers-k8s/blob/a10e9fc4f201129765260fa4f6751a6c9421bc31/apis/core/v1alpha1/conditions.go#L37-L54"><code>ackv1alpha1.Condition</code></a> structs. The
+<code>Condition</code> struct is responsible for conveying information about the latest
+observed sync state of a resource, including any terminal condition states that
+cause the resource to be "unsyncable".</p>
+<p>Next is the <code>Location</code> field. This field gets its definition from the S3
+<code>CreateBucketOutput.Location</code> field:</p>
+<div class="codehilite"><pre><span></span><code>    <span class="nt">&quot;CreateBucketOutput&quot;</span><span class="p">:{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;structure&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;members&quot;</span><span class="p">:{</span>
+        <span class="nt">&quot;Location&quot;</span><span class="p">:{</span>
+          <span class="nt">&quot;shape&quot;</span><span class="p">:</span><span class="s2">&quot;Location&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../../community/faq/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              None
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../building-controller/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              None
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Amazon
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/awscloud" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.d351de03.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a1609d9a.min.js"></script>
+      
+    
+  </body>
+</html>
