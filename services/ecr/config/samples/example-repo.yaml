@@ -1,0 +1,10 @@
+---
+apiVersion: "ecr.services.k8s.aws/v1alpha1"
+kind: Repository
+metadata:
+  name: "test-repository-from-ack"
+spec:
+  repositoryName: "test-repository-from-ack"
+  tags:
+  - key: "is-encrypted"
+    value: "false"

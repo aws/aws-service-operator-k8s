@@ -10,7 +10,8 @@ nav:
   - Overview: 'index.md'
   - Services: 'services.md'
 - User docs:
-  - Install: 'user-docs/wip.md'
+  - Install:
+    - Amazon ECR: 'user-docs/services/ecr/index.md'
   - Permissions: 'user-docs/wip.md'
   - Usage: 'user-docs/wip.md'
 - Contributor docs:
